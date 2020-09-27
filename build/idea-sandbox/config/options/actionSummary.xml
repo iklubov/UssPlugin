@@ -1,0 +1,18 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <data>
+      <entry key="Images.Editor.ZoomIn">
+        <ActionSummary times="4" last="1601149278703" />
+      </entry>
+      <entry key="Images.ToggleTransparencyChessboard">
+        <ActionSummary times="6" last="1601149282474" />
+      </entry>
+      <entry key="SaveAll">
+        <ActionSummary times="1" last="1601149287773" />
+      </entry>
+      <entry key="WelcomeScreen.OpenProject">
+        <ActionSummary times="1" last="1601145667856" />
+      </entry>
+    </data>
+  </component>
+</application>
