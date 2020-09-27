@@ -1,6 +1,10 @@
-org/intellij/sdk/ussPlugin/UssLanguage.java
- org.intellij.sdk.ussPlugin.UssLanguage
-org/intellij/sdk/ussPlugin/UssIcons.java
- org.intellij.sdk.ussPlugin.UssIcons
-org/intellij/sdk/ussPlugin/UssFileType.java
- org.intellij.sdk.ussPlugin.UssFileType
+org/intellij/sdk/language/psi/UssTokenType.java
+ org.intellij.sdk.language.psi.UssTokenType
+org/intellij/sdk/language/UssIcons.java
+ org.intellij.sdk.language.UssIcons
+org/intellij/sdk/language/psi/UssElementType.java
+ org.intellij.sdk.language.psi.UssElementType
+org/intellij/sdk/language/UssFileType.java
+ org.intellij.sdk.language.UssFileType
+org/intellij/sdk/language/UssLanguage.java
+ org.intellij.sdk.language.UssLanguage
