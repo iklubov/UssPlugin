@@ -13,7 +13,7 @@
     </description>
   <depends>com.intellij.modules.platform</depends>
   <extensions defaultExtensionNs="com.intellij">
-    <fileType name="Uss file" implementationClass="org.intellij.sdk.ussPlugin.UssFileType" fieldName="instance" language="Uss" extensions="uss"/>
+    <fileType name="Uss file" implementationClass="org.intellij.sdk.language.UssFileType" fieldName="instance" language="Uss" extensions="uss"/>
   </extensions>
   <actions/>
 </idea-plugin>
