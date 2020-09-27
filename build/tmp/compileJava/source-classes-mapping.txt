@@ -1,9 +1,38 @@
-org/intellij/sdk/language/psi/UssTokenType.java
- org.intellij.sdk.language.psi.UssTokenType
-org/intellij/sdk/language/UssIcons.java
- org.intellij.sdk.language.UssIcons
+org/intellij/sdk/language/UssLexer.java
+ org.intellij.sdk.language.UssLexer
+org/intellij/sdk/language/psi/UssNamedElement.java
+ org.intellij.sdk.language.psi.UssNamedElement
 org/intellij/sdk/language/psi/UssElementType.java
  org.intellij.sdk.language.psi.UssElementType
+org/intellij/sdk/language/psi/UssElementFactory.java
+ org.intellij.sdk.language.psi.UssElementFactory
+org/intellij/sdk/language/psi/UssProperty.java
+ org.intellij.sdk.language.psi.UssProperty
+org/intellij/sdk/language/psi/UssFile.java
+ org.intellij.sdk.language.psi.UssFile
+org/intellij/sdk/language/UssParserDefinition.java
+ org.intellij.sdk.language.UssParserDefinition
+org/intellij/sdk/language/psi/impl/UssPropertyImpl.java
+ org.intellij.sdk.language.psi.impl.UssPropertyImpl
+org/intellij/sdk/language/parser/UssParser.java
+ org.intellij.sdk.language.parser.UssParser
+ org.intellij.sdk.language.parser.UssParser$1
+org/intellij/sdk/language/psi/UssTokenType.java
+ org.intellij.sdk.language.psi.UssTokenType
+org/intellij/sdk/language/psi/UssVisitor.java
+ org.intellij.sdk.language.psi.UssVisitor
+org/intellij/sdk/language/psi/UssTypes.java
+ org.intellij.sdk.language.psi.UssTypes
+ org.intellij.sdk.language.psi.UssTypes$Factory
+org/intellij/sdk/language/psi/impl/UssNamedElementImpl.java
+ org.intellij.sdk.language.psi.impl.UssNamedElementImpl
+org/intellij/sdk/language/UssIcons.java
+ org.intellij.sdk.language.UssIcons
+org/intellij/sdk/language/UssLexerAdapter.java
+ org.intellij.sdk.language.UssLexerAdapter
+org/intellij/sdk/language/psi/impl/UssPsiImplUtil.java
+ org.intellij.sdk.language.psi.impl.UssPsiImplUtil
+ org.intellij.sdk.language.psi.impl.UssPsiImplUtil$1
 org/intellij/sdk/language/UssFileType.java
  org.intellij.sdk.language.UssFileType
 org/intellij/sdk/language/UssLanguage.java

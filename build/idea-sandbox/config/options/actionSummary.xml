@@ -1,6 +1,9 @@
 <application>
   <component name="ActionsLocalSummary">
     <data>
+      <entry key="GotoAction">
+        <ActionSummary times="2" last="1601232938477" />
+      </entry>
       <entry key="Images.Editor.ZoomIn">
         <ActionSummary times="4" last="1601149278703" />
       </entry>
@@ -12,6 +15,12 @@
       </entry>
       <entry key="WelcomeScreen.OpenProject">
         <ActionSummary times="1" last="1601145667856" />
+      </entry>
+      <entry key="WelcomeScreen.Plugins">
+        <ActionSummary times="1" last="1601232943400" />
+      </entry>
+      <entry key="com.intellij.openapi.project.DumbAwareAction$SimpleDumbAwareAction">
+        <ActionSummary times="1" last="1601232943387" />
       </entry>
     </data>
   </component>

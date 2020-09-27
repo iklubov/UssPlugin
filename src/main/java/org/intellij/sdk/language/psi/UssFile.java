@@ -5,25 +5,25 @@ package org.intellij.sdk.language.psi;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
-import org.intellij.sdk.language.SimpleFileType;
-import org.intellij.sdk.language.SimpleLanguage;
+import org.intellij.sdk.language.UssFileType;
+import org.intellij.sdk.language.UssLanguage;
 import org.jetbrains.annotations.NotNull;
 
-public class SimpleFile extends PsiFileBase {
+public class UssFile extends PsiFileBase {
 
-  public SimpleFile(@NotNull FileViewProvider viewProvider) {
-    super(viewProvider, SimpleLanguage.INSTANCE);
+  public UssFile(@NotNull FileViewProvider viewProvider) {
+    super(viewProvider, UssLanguage.getInstance());
   }
 
   @NotNull
   @Override
   public FileType getFileType() {
-    return SimpleFileType.INSTANCE;
+    return UssFileType.instance;
   }
 
   @Override
   public String toString() {
-    return "Simple File";
+    return "Uss File";
   }
 
 }

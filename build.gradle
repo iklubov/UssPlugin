@@ -32,3 +32,5 @@ patchPluginXml {
       Add change notes here.<br>
       <em>most HTML tags may be used</em>"""
 }
+
+sourceSets.main.java.srcDirs 'src/main/gen'

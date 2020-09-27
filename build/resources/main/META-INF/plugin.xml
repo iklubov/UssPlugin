@@ -14,6 +14,7 @@
   <depends>com.intellij.modules.platform</depends>
   <extensions defaultExtensionNs="com.intellij">
     <fileType name="Uss file" implementationClass="org.intellij.sdk.language.UssFileType" fieldName="instance" language="Uss" extensions="uss"/>
+    <lang.parserDefinition language="Uss" implementationClass="org.intellij.sdk.language.UssParserDefinition"/>
   </extensions>
   <actions/>
 </idea-plugin>

@@ -8,7 +8,11 @@
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/uss/test.uss">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -20,10 +24,11 @@
       </set>
     </option>
   </component>
+  <component name="ProjectFrameBounds" x="260" y="40" width="1400" height="1000" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" />
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -53,13 +58,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="ToolWindowManager">
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26641792" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18880597" />
       <window_info id="Structure" order="1" side_tool="true" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Commit" order="3" />
@@ -77,6 +82,8 @@
       <window_info anchor="bottom" id="Build" order="10" />
       <window_info anchor="right" id="Ant" order="0" />
       <window_info anchor="right" id="Gradle" order="1" />
+      <window_info anchor="right" id="PsiViewer" order="5" visible="true" weight="0.32985073" />
+      <window_info anchor="right" id="Layout Validation" order="5" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -84,7 +91,11 @@
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/uss/test.uss">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

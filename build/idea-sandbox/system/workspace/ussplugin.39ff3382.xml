@@ -16,7 +16,7 @@
                   <option name="dirty" value="false" />
                   <option name="settingsFiles">
                     <map>
-                      <entry key="$PROJECT_DIR$/build.gradle" value="1062550631" />
+                      <entry key="$PROJECT_DIR$/build.gradle" value="3066032128" />
                       <entry key="$PROJECT_DIR$/settings.gradle" value="1121631213" />
                     </map>
                   </option>
@@ -182,6 +182,9 @@
         <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
       </map>
     </option>
+  </component>
+  <component name="VcsLogIndexCollector">
+    <option name="indexTime" value="1420" />
   </component>
   <component name="sourceFolderManager">
     <option name="sourceFolders">

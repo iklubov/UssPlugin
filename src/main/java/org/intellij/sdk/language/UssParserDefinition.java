@@ -13,22 +13,22 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import org.intellij.sdk.language.parser.SimpleParser;
-import org.intellij.sdk.language.psi.SimpleFile;
-import org.intellij.sdk.language.psi.SimpleTypes;
+import org.intellij.sdk.language.parser.UssParser;
+import org.intellij.sdk.language.psi.UssFile;
+import org.intellij.sdk.language.psi.UssTypes;
 import org.jetbrains.annotations.NotNull;
 
-public class SimpleParserDefinition implements ParserDefinition {
+public class UssParserDefinition implements ParserDefinition {
 
   public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-  public static final TokenSet COMMENTS = TokenSet.create(SimpleTypes.COMMENT);
+  public static final TokenSet COMMENTS = TokenSet.create(UssTypes.COMMENT);
 
-  public static final IFileElementType FILE = new IFileElementType(SimpleLanguage.INSTANCE);
+  public static final IFileElementType FILE = new IFileElementType(UssLanguage.getInstance());
 
   @NotNull
   @Override
   public Lexer createLexer(Project project) {
-    return new SimpleLexerAdapter();
+    return new UssLexerAdapter();
   }
 
   @NotNull
@@ -52,7 +52,7 @@ public class SimpleParserDefinition implements ParserDefinition {
   @NotNull
   @Override
   public PsiParser createParser(final Project project) {
-    return new SimpleParser();
+    return new UssParser();
   }
 
   @Override
@@ -62,7 +62,7 @@ public class SimpleParserDefinition implements ParserDefinition {
 
   @Override
   public PsiFile createFile(FileViewProvider viewProvider) {
-    return new SimpleFile(viewProvider);
+    return new UssFile(viewProvider);
   }
 
   @Override
@@ -73,7 +73,7 @@ public class SimpleParserDefinition implements ParserDefinition {
   @NotNull
   @Override
   public PsiElement createElement(ASTNode node) {
-    return SimpleTypes.Factory.createElement(node);
+    return UssTypes.Factory.createElement(node);
   }
 
 }

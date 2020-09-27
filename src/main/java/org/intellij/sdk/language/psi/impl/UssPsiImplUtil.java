@@ -6,28 +6,28 @@ import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import org.intellij.sdk.language.SimpleIcons;
-import org.intellij.sdk.language.psi.SimpleElementFactory;
-import org.intellij.sdk.language.psi.SimpleProperty;
-import org.intellij.sdk.language.psi.SimpleTypes;
+import org.intellij.sdk.language.UssIcons;
+import org.intellij.sdk.language.psi.UssElementFactory;
+import org.intellij.sdk.language.psi.UssProperty;
+import org.intellij.sdk.language.psi.UssTypes;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class SimplePsiImplUtil {
+public class UssPsiImplUtil {
 
-  public static String getKey(SimpleProperty element) {
-    ASTNode keyNode = element.getNode().findChildByType(SimpleTypes.KEY);
+  public static String getKey(UssProperty element) {
+    ASTNode keyNode = element.getNode().findChildByType(UssTypes.KEY);
     if (keyNode != null) {
-      // IMPORTANT: Convert embedded escaped spaces to simple spaces
+      // IMPORTANT: Convert embedded escaped spaces to Uss spaces
       return keyNode.getText().replaceAll("\\\\ ", " ");
     } else {
       return null;
     }
   }
 
-  public static String getValue(SimpleProperty element) {
-    ASTNode valueNode = element.getNode().findChildByType(SimpleTypes.VALUE);
+  public static String getValue(UssProperty element) {
+    ASTNode valueNode = element.getNode().findChildByType(UssTypes.VALUE);
     if (valueNode != null) {
       return valueNode.getText();
     } else {
@@ -35,22 +35,22 @@ public class SimplePsiImplUtil {
     }
   }
 
-  public static String getName(SimpleProperty element) {
+  public static String getName(UssProperty element) {
     return getKey(element);
   }
 
-  public static PsiElement setName(SimpleProperty element, String newName) {
-    ASTNode keyNode = element.getNode().findChildByType(SimpleTypes.KEY);
+  public static PsiElement setName(UssProperty element, String newName) {
+    ASTNode keyNode = element.getNode().findChildByType(UssTypes.KEY);
     if (keyNode != null) {
-      SimpleProperty property = SimpleElementFactory.createProperty(element.getProject(), newName);
+      UssProperty property = UssElementFactory.createProperty(element.getProject(), newName);
       ASTNode newKeyNode = property.getFirstChild().getNode();
       element.getNode().replaceChild(keyNode, newKeyNode);
     }
     return element;
   }
 
-  public static PsiElement getNameIdentifier(SimpleProperty element) {
-    ASTNode keyNode = element.getNode().findChildByType(SimpleTypes.KEY);
+  public static PsiElement getNameIdentifier(UssProperty element) {
+    ASTNode keyNode = element.getNode().findChildByType(UssTypes.KEY);
     if (keyNode != null) {
       return keyNode.getPsi();
     } else {
@@ -58,7 +58,7 @@ public class SimplePsiImplUtil {
     }
   }
 
-  public static ItemPresentation getPresentation(final SimpleProperty element) {
+  public static ItemPresentation getPresentation(final UssProperty element) {
     return new ItemPresentation() {
       @Nullable
       @Override
@@ -75,7 +75,7 @@ public class SimplePsiImplUtil {
 
       @Override
       public Icon getIcon(boolean unused) {
-        return SimpleIcons.FILE;
+        return UssIcons.FILE;
       }
     };
   }
