@@ -32,6 +32,7 @@ public interface UssTypes {
   IElementType L_PARENTHESIS = new UssTokenType("L_PARENTHESIS");
   IElementType R_PARENTHESIS = new UssTokenType("R_PARENTHESIS");
   IElementType SEPARATOR = new UssTokenType("SEPARATOR");
+  IElementType STYLE = new UssTokenType("STYLE");
   IElementType WORD = new UssTokenType("WORD");
 
   class Factory {

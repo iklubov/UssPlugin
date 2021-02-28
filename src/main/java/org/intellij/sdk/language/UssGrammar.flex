@@ -72,6 +72,7 @@ BINDING_PROP = [\w]+
 <YYINITIAL> {BINDING}                                     { yybegin(BINDING_DEFINITION); return UssTypes.BINDING; }
 
 <YYINITIAL> {BLOCK}                                     { yybegin(YYINITIAL); return UssTypes.BLOCK; }
+<YYINITIAL> {STYLE}                                     { yybegin(YYINITIAL); return UssTypes.STYLE; }
 
 <YYINITIAL> {CSS}                                     { yybegin(YYINITIAL); return UssTypes.CSS; }
 

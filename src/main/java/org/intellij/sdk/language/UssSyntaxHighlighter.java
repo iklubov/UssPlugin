@@ -18,7 +18,9 @@ public class UssSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey ELEMENT =
             TextAttributesKey.createTextAttributesKey("USS_ELEMENT", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey BLOCK =
-            TextAttributesKey.createTextAttributesKey("USS_BLOCK", DefaultLanguageHighlighterColors.KEYWORD);
+            TextAttributesKey.createTextAttributesKey("USS_BLOCK", DefaultLanguageHighlighterColors.INTERFACE_NAME);
+    public static final TextAttributesKey STYLE =
+            TextAttributesKey.createTextAttributesKey("USS_STYLE", DefaultLanguageHighlighterColors.INSTANCE_METHOD);
     public static final TextAttributesKey BAD_CHARACTER =
             TextAttributesKey.createTextAttributesKey("USS_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 
@@ -29,6 +31,7 @@ public class UssSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] BLOCK_KEYS = new TextAttributesKey[]{BLOCK};
     private static final TextAttributesKey[] SEPARATOR_KEYS = new TextAttributesKey[]{SEPARATOR};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
+    private static final TextAttributesKey[] STYLE_KEYS = new TextAttributesKey[]{STYLE};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
 
@@ -56,6 +59,8 @@ public class UssSyntaxHighlighter extends SyntaxHighlighterBase {
             return BLOCK_KEYS;
         } else if (tokenType.equals(UssTypes.CSS)) {
             return BLOCK_KEYS;
+        } else if (tokenType.equals(UssTypes.STYLE)) {
+            return STYLE_KEYS;
         } else {
             return EMPTY_KEYS;
         }

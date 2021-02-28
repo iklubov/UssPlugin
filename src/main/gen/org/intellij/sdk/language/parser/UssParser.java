@@ -96,7 +96,7 @@ public class UssParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS
+  // ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS | STYLE
   public static boolean service(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "service")) return false;
     boolean r;
@@ -107,6 +107,7 @@ public class UssParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, BINDING);
     if (!r) r = consumeToken(b, IMPORT);
     if (!r) r = consumeToken(b, CLASS);
+    if (!r) r = consumeToken(b, STYLE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

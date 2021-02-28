@@ -27,7 +27,7 @@ separator_expr ::= SEPARATOR
 
 word_expr ::= (WORD | DOUBLE_QUOTE | EMPTY_TOKEN)+
 
-service ::= ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS
+service ::= ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS | STYLE
 
 name_expr ::= ELEMENT_NAME | BINDING_NAME | BINDING_PROP
 
