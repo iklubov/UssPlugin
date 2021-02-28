@@ -1,0 +1,345 @@
+###################HEADER####################HEADER####################HEADER##################
+
+###################HEADER####################HEADER####################HEADER##################
+##Hello Hello Hello Hello
+(css $ItemListAchievementMargins ()
+	(marginRight 12px)
+	(marginLeft 12px)
+	(marginBottom 24px)
+)
+
+(element   AchievementAppear ()
+     ################EARN_NOTICE################EARN_NOTICE###############EARN_NOTICE###############
+	(bind appear "'addedToStage'; (_animationOn ? 0.15 : 0 ); (_animationOn ? (0.15 * $index + _delay) : 0); {alpha: 0, top: 10}; {alpha: 1, top: 0}")
+	################EARN_NOTICE################EARN_NOTICE###############EARN_NOTICE###############
+	(block
+		(style (marginRight 26px))
+		(bind instance "'AchievementIcon'; {_id: id, _amount: amount, _size: '56px', _progressWidth: '44px', _showProgress: true}")
+	)
+)
+
+(element Achievement ()
+	(bind class "_isInItemList ? '$ItemListAchievementMargins' : '$None'")
+	(block 	
+		(bind instance "'AchievementIcon'; {_id: id, _progressWidth: '50px', _amount: amount, _size: _iconSize ? _iconSize : '80px', _isDesaturated: (amount>0 ? false : true), _isEarned:_isEarned, _showProgress: true}")
+	)
+)
+
+(element EarnedAchievementsByPlayer ()
+	(style (width 100%))
+	(bind tooltip "'EarnedAchievementsByPlayerTooltip'; {_achievements: _achievements, _isSelfPlayer: _isSelfPlayer}")
+	(block
+		(style
+			(width 21px)
+			(height 21px)
+			(position absolute)
+			(marginLeft -2px)
+			(marginTop -1px)
+			(mouseChildren false)
+			(mouseEnabled false)
+			(backgroundStretchX true)
+			(backgroundStretchY true)
+		)
+		(bind style "'backgroundImage'; 'url:../achievements/icons/icon_achievement.png'")
+	)
+)
+
+(element EarnedAchievementsByPlayerTooltip ()
+	(class $DefaultTooltipBehaviour)
+	(style (width 300px))
+
+	(DeclareBlurLayer)
+	(BlurMap)
+	(bind controller "lesta.dialogs.controllers.EntitySingletonController; 'optionData'")
+	(mc contrast_panel
+		(class $FullsizeAbsolute)
+		(bind visible "optionData.contrast")
+	)
+	(mc hint_panel
+		(class $FullsizeAbsolute)
+	)
+	(block
+		(style  (width 100%)(marginBottom 3px))
+		
+		(tf
+			(class $InfoBlockIndent)
+			(style (marginBottom 7px))
+
+			(class $TextDefaultBold)
+
+			(bind class "'$FontColorWhite'")
+			(bind text "_isSelfPlayer ? tr('IDS_YOUR_ACHIEVEMENTS') : tr('IDS_PLAYERS_ACHIEVEMENTS')")
+		)
+		
+		(HorizontalDivider)
+		
+		(block
+			(style (width 100%)(marginTop 11px))
+			(bind repeat "_achievements; 'AchievementIconWithTitle'")
+		)
+	)
+)
+
+(element AchievementIcon ()
+	(bind controller "lesta.dialogs.controllers.CollectionController; 'achievements'; _id; 'achievement'")
+	(bind style "'alpha'; _isDesaturated ? 0.75 : 1")
+	(bind name "'AchievementWithCount_'+(_isEarned ? 'Earned_':'') + achievement.name")
+	(block
+		(bind tooltip "'AchievementTooltip'; {_id: _id, _progressWidth: _progressWidth}")
+		(bind style "'width'; _size ? _size : '80px' ")
+		(bind style "'height'; _size ? _size : '80px' ")
+		(style
+			(marginRight 0px)
+			(marginTop 0px)
+			(backgroundStretchX true)
+			(backgroundStretchY true)
+		)
+
+		(bind style "'backgroundImage'; 'url:' + (_isDesaturated ? achievement.imageDesURL : achievement.imageURL)")
+		(tf
+			(bind visible "_amount > 1 && (achievement.multiple)")
+
+			(style
+				(textAlign right)
+				(position absolute)
+				(bottom -7px)
+				(right -5px)
+			)
+			(bind class "_isSmall ? '$TextDefaultWhite' : '$TextAccentBold'")
+			(bind class "'$Bold'")
+			(bind class "'$FontColorWhite'")
+			(bind text "'x'+_amount")
+		)
+	)
+
+	(block
+		(bind tooltip "'SimpleTooltip';{tooltipText: tr('IDS_CURRENT_PROGRESS') + tr('IDS_COLON') + ' ' + format(achievement.condition.currentProgress, 0) + '/' + format(achievement.condition.max, 0)}")
+		(bind visible "(achievement.condition.currentProgress > 0) && (achievement.condition.max > 0) && (_showProgress == true)")
+		(class $MiddleAligned)
+		(bind style "'width'; _progressWidth ? _progressWidth : '30px' ")
+		(style (marginTop 3px))
+		(mc indicator_progress_bar
+			(style (width 100%))
+			(bind value "(achievement.condition.progress)*10")
+		)
+	)
+)
+
+(element AchievementTooltip ()
+	(bind controller "lesta.dialogs.controllers.CollectionController; 'achievements'; _id; 'achievement'")
+	(class $DefaultTooltipBehaviour)
+	(style (width 340px))
+
+	(DeclareBlurLayer)
+	(BlurMap)
+	(bind controller "lesta.dialogs.controllers.EntitySingletonController; 'optionData'")
+	(mc contrast_panel
+		(class $FullsizeAbsolute)
+		(bind visible "optionData.contrast")
+	)
+	(mc hint_panel
+		(class $Fullsize)
+		(style (position absolute))
+	)
+
+	(block
+		(style (width 100%) (marginTop 12px) (marginBottom 0px))
+		
+		(hblock
+			(style (width 100%))
+			
+			(block
+				(style (marginLeft 12px) (marginBottom 12px))
+				(bind instance "'AchievementIcon'; {_id: _id, _amount: _amount, _progressWidth: _progressWidth}")
+			)
+
+			(block
+				(class $InfoBlockHorizontalIndent)
+				(style
+					(marginLeft 10px)
+					(marginTop -1px)
+				)				
+				(tf
+					(class $TextHeaderWhiteBold)					
+					(style
+						(width 100%) 
+						(maxWidth 222)
+						(textAlign left)
+					)					
+					(bind class "(achievement.amount > 0) 	? '$FontColorGolden' 
+															: '$FontColorWhite'")
+					(bind text "achievement.nameIDS")
+				)
+				(tf
+					(class $TextHeaderBigDefaultTech)
+					
+					(style
+						(marginTop -3px)
+						(maxWidth 220)
+						(textAlign left)
+					)
+					(bind text "achievement.subtypeIDS")
+				)
+			)
+
+			(block
+				(style (width 100%) (bottom 0px) (position absolute))
+				(HorizontalDivider)
+			)
+		)
+		(block
+			(bind visible "((_amount == null) && (achievement.amount > 0)) && (achievement.multiple)")
+			(style
+				(width 100%)
+				(marginTop 8px)
+				(marginBottom 8px)
+			)
+
+			(tf
+				(bind visible "(achievement.amount > 1)")
+				(class $TextHeaderBigDefaultTech)
+				(class $InfoBlockHorizontalIndent)
+				(style (textAlign left))			
+				(bind text "(tr('IDS_EARNED') + tr('IDS_COLON') + ' ' + achievement.amount)")
+			)
+			(tf
+				(class $TextHeaderBigDefaultTech)
+				(style
+					(marginLeft 12px)
+					(textAlign left)
+				)
+				(bind style "'marginBottom'; (achievement.achieveShip!=null) ? '1px' : '9px'")
+				(bind text "((achievement.amount > 1)	? (tr('IDS_LAST_TIME') +' '+ achievement.achieveTime)
+														: (tr('IDS_EARNED') + tr('IDS_COLON') + ' ' + achievement.amount))")
+			)
+			
+			(hblock
+				(bind visible "(achievement.achieveShip != 0)")
+
+				(style (width 100%)	(marginLeft 12px))
+				(tf
+					(class $TextHeaderBigDefaultTech)
+					(class $MiddleVAligned)
+					(style
+						(textAlign left)
+					)
+					(bind text "tr('IDS_ON_SHIP')+' '")
+				)
+				(block
+					(style (marginTop -1px))
+					(bind instance "'ShipTitleWithIconAndLevel'; {_shipID: achievement.achieveShip}")				)
+			)
+		)
+		(block
+			(bind visible "((_amount == null) && (achievement.amount > 0)) && (achievement.multiple)")
+			(style (width 100%))
+			(HorizontalDivider)
+		)
+		(block
+			(class $InfoBlockIndent)
+			(style (marginTop 8px))
+
+			(tf
+				(class $TextHeaderBigDefault)
+				(style
+					(width 100%)
+					(textAlign left)
+				)
+			
+				(bind text "achievement.condition.description")
+			)
+			(block
+				(bind visible "(achievement.condition.currentProgress > 0) && (achievement.condition.max > 0)")
+				(style (marginTop 18px)(width 100%))
+				(mc indicator_progress_bar
+					(style (width 100%))
+					(bind value "(achievement.condition.progress)*10")
+				)
+				(tf
+					(class $MiddleAligned)
+					(class $TextHeaderBigDefaultTech)
+					(style (marginTop 6px))
+					(bind class "'$FontColorBlueish'")
+					(bind text "tr('IDS_CURRENT_PROGRESS') + tr('IDS_COLON') + ' ' + format(achievement.condition.currentProgress, 0) + '/' + format(achievement.condition.max, 0)")
+				)
+			)
+		)
+		(HorizontalDivider)
+		(block
+			(style (width 100%) (marginTop 8px))
+
+			(tf
+				(class $TextHeaderBigDefaultTech)
+				(class $InfoBlockHorizontalIndent)
+				(bind style "'marginBottom'; achievement.hasReward ? '9px' : '12px'")
+				(style (textAlign left))
+			
+				(bind text "achievement.multipleIDS")
+			)
+
+			(block
+				(style (width 100%) (bottom 0px) (position absolute))
+				(HorizontalDivider)
+			)
+		)
+		################EARN_NOTICE################EARN_NOTICE###############EARN_NOTICE###############
+		###############REWARD_NOTICE##############REWARD_NOTICE#############REWARD_NOTICE##############
+		(hblock
+			(bind visible "achievement.hasReward")
+			(style (width 100%) (marginTop 12px) (marginBottom 12px))
+			
+			(mc icon_giftbox_small
+				(style (marginLeft 14px))
+			)
+
+			(block
+				(class $InfoBlockHorizontalIndentNoWidth)
+				(style
+					(width 258px)
+					(marginTop -3px)
+				)
+
+				(tf
+					(class $TextHeaderBigDefault)
+					(style
+						(width 100%)
+						(textAlign left)
+					)
+				
+					(bind text "achievement.rewardConditionIDS")			
+				)
+			)
+		)
+		###############REWARD_NOTICE##############REWARD_NOTICE#############REWARD_NOTICE##############
+	)
+)
+
+(element AchievementIconWithTitle ()
+	(bind controller "lesta.dialogs.controllers.CollectionController; 'achievements'; id; 'achievement'")
+	(style (width 100%)(height 44px))
+	(hblock
+		(class $MiddleVAligned)
+		(style (width 100%)(marginBottom 9px) (marginLeft 15px))
+		
+		(block
+			(bind instance "'AchievementIcon'; {_id: id, _amount: amount , _size: '34px', _isSmall: true, _showProgress: _showProgress}")
+		)		
+		(tf
+			(style (marginLeft 8px) (marginTop 6px)(width 100%))
+			(class $TextDefaultBold)
+			(bind class " _class ? _class: '$FontColorGolden'")
+			(bind text "achievement.nameIDS")
+		)
+	)
+)
+
+(element AchievementIconWithTitleForFlags ()
+	(style (width 100%))
+	(bind tooltip "'AchievementTooltip'; {_id: $value}")
+	(bind instance "'AchievementIconWithTitle'; {id: $value, _class: '$FontColorWhite'}")
+)
+
+(element AchievementIconWithTitleForRewards ()
+	(style (width 100%))
+	(bind instance "'AchievementIconWithTitle'; { id: details.achievementId, amount: amount }")
+)

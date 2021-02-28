@@ -1,0 +1,40 @@
+{
+  parserClass="org.intellij.sdk.language.parser.UssParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Uss"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.intellij.sdk.language.psi"
+  psiImplPackage="org.intellij.sdk.language.psi.impl"
+
+  elementTypeHolderClass="org.intellij.sdk.language.psi.UssTypes"
+  elementTypeClass="org.intellij.sdk.language.psi.UssElementType"
+  tokenTypeClass="org.intellij.sdk.language.psi.UssTokenType"
+
+  psiImplUtilClass="org.intellij.sdk.language.psi.impl.UssPsiImplUtil"
+}
+
+ussFile ::= item_*
+
+private item_ ::= comment | newline | token
+
+comment ::= COMMENT_EXPR
+
+newline ::= CRLF
+
+separator_expr ::= SEPARATOR
+
+word_expr ::= (WORD | DOUBLE_QUOTE | EMPTY_TOKEN)+
+
+service ::= ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS
+
+name_expr ::= ELEMENT_NAME | BINDING_NAME | BINDING_PROP
+
+token ::= L_PARENTHESIS({service|name_expr|token|separator_expr|word_expr|newline}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+
+
+
+
+
+
