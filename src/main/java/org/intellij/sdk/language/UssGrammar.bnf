@@ -25,13 +25,15 @@ newline ::= CRLF
 
 separator_expr ::= SEPARATOR
 
-word_expr ::= (WORD | DOUBLE_QUOTE | EMPTY_TOKEN)+
+word_expr ::= (WORD | DOUBLE_QUOTE | EMPTY_TOKEN | COLON)+
 
 service ::= ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS | STYLE
 
-name_expr ::= ELEMENT_NAME | BINDING_NAME | BINDING_PROP
+name_expr ::= ELEMENT_NAME | BINDING_NAME | BINDING_PROP | NO_PARAMS_BINDING | BINDING_PROP_FUNCTION | CLASS_NAME
 
-token ::= L_PARENTHESIS({service|name_expr|token|separator_expr|word_expr|newline}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+token_fill ::= service|name_expr|separator_expr|word_expr|newline
+
+token ::= L_PARENTHESIS({token|service|name_expr|separator_expr|word_expr|newline}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
 
 

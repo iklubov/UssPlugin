@@ -18,9 +18,9 @@ public class UssSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey ELEMENT =
             TextAttributesKey.createTextAttributesKey("USS_ELEMENT", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey BLOCK =
-            TextAttributesKey.createTextAttributesKey("USS_BLOCK", DefaultLanguageHighlighterColors.INTERFACE_NAME);
+            TextAttributesKey.createTextAttributesKey("USS_BLOCK", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
     public static final TextAttributesKey STYLE =
-            TextAttributesKey.createTextAttributesKey("USS_STYLE", DefaultLanguageHighlighterColors.INSTANCE_METHOD);
+            TextAttributesKey.createTextAttributesKey("USS_STYLE", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
     public static final TextAttributesKey BAD_CHARACTER =
             TextAttributesKey.createTextAttributesKey("USS_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 

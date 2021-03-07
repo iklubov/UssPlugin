@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class UssCompletionContributor extends CompletionContributor {
 
     public UssCompletionContributor() {
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(UssTypes.L_PARENTHESIS),
+        extend(CompletionType.BASIC, PlatformPatterns.psiElement(UssTypes.BINDING),
                 new CompletionProvider<CompletionParameters>() {
                     public void addCompletions(@NotNull CompletionParameters parameters,
                                                @NotNull ProcessingContext context,

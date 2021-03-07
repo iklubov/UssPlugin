@@ -16,7 +16,7 @@ import java.util.List;
 
 public class UssUtil {
     /**
-     * Searches the entire project for Simple language files with instances of the Simple property with the given key.
+     * Searches the entire project for Uss language files with instances of the Uss property with the given key.
      *
      * @param project current project
      * @param key     to check
@@ -27,12 +27,13 @@ public class UssUtil {
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(UssFileType.INSTANCE, GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {
-            UssFile simpleFile = (UssFile) PsiManager.getInstance(project).findFile(virtualFile);
-            if (simpleFile != null) {
-                UssToken[] properties = PsiTreeUtil.getChildrenOfType(simpleFile, UssToken.class);
+            UssFile ussFile = (UssFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (ussFile != null) {
+                UssToken[] properties = PsiTreeUtil.getChildrenOfType(ussFile, UssToken.class);
                 if (properties != null) {
                     for (UssToken property : properties) {
                         //if (key.equals(property.getKey())) {
+                        // to do
                         if (true) {
                             result.add(property);
                         }
@@ -48,9 +49,9 @@ public class UssUtil {
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(UssFileType.INSTANCE, GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {
-            UssFile simpleFile = (UssFile) PsiManager.getInstance(project).findFile(virtualFile);
-            if (simpleFile != null) {
-                UssToken[] properties = PsiTreeUtil.getChildrenOfType(simpleFile, UssToken.class);
+            UssFile ussFile = (UssFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (ussFile != null) {
+                UssToken[] properties = PsiTreeUtil.getChildrenOfType(ussFile, UssToken.class);
                 if (properties != null) {
                     Collections.addAll(result, properties);
                 }
