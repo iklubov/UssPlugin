@@ -18,10 +18,11 @@ import org.intellij.sdk.language.psi.UssTypes;
 
 L_PARENTHESIS="("
 R_PARENTHESIS=")"
-DOUBLE_QUOTE = ["\""]
-COLON = [":"]
+DOUBLE_QUOTE = "\""
+COLON = ":"
+VIRGULE = ","
 SEPARATOR=[\s]+
-WORD=[\w]+|[$]+|["'"]|[";"]|[","]|["?"]|["+"]|["-"]|["."] | ["*"] | ["{"] | ["}"] | [">"] | ["<"] | ["="] | ["!"] | ["%"] | ["\/"] | ["&"]|["|"]|"]"|"["|"—"
+WORD=["-"]*[\w]+|[$]+|["-"]|["'"]|[";"]|["?"]|["+"]|["."] | ["*"] | ["{"] | ["}"] | [">"] | ["<"] | ["="] | ["!"] | ["%"] | ["\/"] | ["&"]|["|"]|["]"]|["["]|["—"]
 EMPTY_TOKEN = ["("][\s]*[")"]
 
 
@@ -38,6 +39,9 @@ BINDING = "bind"
 IMPORT = "import"
 CLASS = "class"
 STYLE = "style"
+TEXT_FIELD = "tf"
+
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"
 
 ELEMENT_NAME = [\w]+
 CLASS_NAME = "$"[\w]+
@@ -46,7 +50,7 @@ BINDING_PROP = [\w]+
 BINDING_PROP_FUNCTION = [\w]+"!"
 
 NO_PARAMS_BINDING = "stageSize"
-//BINDING_NAME = [\w]+
+
 
 //WHITE_SPACE=[\ \n\t\f]
 //COMMENT=("//")[^\r\n]*
@@ -87,16 +91,11 @@ NO_PARAMS_BINDING = "stageSize"
 // todo
 <YYINITIAL> {BLOCK}                                     { yybegin(YYINITIAL); return UssTypes.BLOCK; }
 <YYINITIAL> {CSS}                                     { yybegin(YYINITIAL); return UssTypes.CSS; }
+<YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(YYINITIAL); return UssTypes.SPECIAL_IDENTIFIER; }
 
 <YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
-
-
-
-// deprecated
-//<YYINITIAL> {WORD}                               			 { yybegin(YYINITIAL); return UssTypes.WORD; }
-
-
-
+//
+<YYINITIAL> {WORD}                               			 { yybegin(YYINITIAL); return UssTypes.WORD; }
 
 <YYINITIAL> {R_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 //<YYINITIAL> {DOUBLE_QUOTE}                                     { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
@@ -121,9 +120,8 @@ NO_PARAMS_BINDING = "stageSize"
 
 <STYLE_DEFINITION> {
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
-    {L_PARENTHESIS}                                      { yybegin(STYLE_PARAMS); return UssTypes.L_PARENTHESIS; }
-    {SEPARATOR}+                                    { return UssTypes.SEPARATOR; }
-    {EMPTY_TOKEN}                                   { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
+    {L_PARENTHESIS}                                    { yybegin(STYLE_PARAMS); return UssTypes.L_PARENTHESIS; }
+    {EMPTY_TOKEN}                                       { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
     {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
@@ -135,7 +133,7 @@ NO_PARAMS_BINDING = "stageSize"
 // TODO ; add here
 // TODO params for bindings from code(docs)
 <BINDING_PARAMS>{
-    {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}              { return UssTypes.WORD; }
+    {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON} | {VIRGULE}             { return UssTypes.WORD; }
     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
     {DOUBLE_QUOTE}                                           { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
 }
@@ -144,6 +142,8 @@ NO_PARAMS_BINDING = "stageSize"
      {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
      {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
      {COLON}                                                  { return UssTypes.COLON; }
+     {VIRGULE}                                                  { return UssTypes.VIRGULE; }
+     {EMPTY_TOKEN}                                            { return UssTypes.EMPTY_TOKEN; }
      {DOUBLE_QUOTE}                                           { yybegin(WORD_INSIDE_STYLE); return UssTypes.DOUBLE_QUOTE; }
      {R_PARENTHESIS}                                      { yybegin(STYLE_DEFINITION); return UssTypes.R_PARENTHESIS; }
 }
