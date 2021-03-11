@@ -15,7 +15,7 @@ public class UssPsiImplUtil {
     }
 
     public static String getValue(UssToken element) {
-        ASTNode valueNode = element.getNode().findChildByType(UssTypes.BLOCK);
+        ASTNode valueNode = element.getNode().findChildByType(UssTypes.BLOCK_TOKEN);
         if (valueNode != null) {
             return valueNode.getText();
         } else {

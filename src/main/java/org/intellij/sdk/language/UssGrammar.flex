@@ -19,11 +19,22 @@ import org.intellij.sdk.language.psi.UssTypes;
 L_PARENTHESIS="("
 R_PARENTHESIS=")"
 DOUBLE_QUOTE = "\""
-COLON = ":"
+COLON = [":"]
 VIRGULE = ","
 SEPARATOR=[\s]+
 WORD=["-"]*[\w]+|[$]+|["-"]|["'"]|[";"]|["?"]|["+"]|["."] | ["*"] | ["{"] | ["}"] | [">"] | ["<"] | ["="] | ["!"] | ["%"] | ["\/"] | ["&"]|["|"]|["]"]|["["]|["—"]
 EMPTY_TOKEN = ["("][\s]*[")"]
+
+// SERVICE EXPRESSIONS
+//HEX_NUMBER= "0x"\d*|["a"]|["b"]|["c"]|["d"]|["e"]|["f"]
+WORD_EXP = ([A-Fa-f]+)
+HEX_NUMBER = "0x" [0-9A-Fa-f]+
+//FILE_PATH = "url:" [A-Fa-f]+ | ( (\.\. | [A-Fa-f]+ ) \/)+
+FILE_PATH = "url:" ((\.{2}\/) | {WORD_EXP})+
+//WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} [\w]+ | {COLON} | {L_PARENTHESIS} | {R_PARENTHESIS} | {SEPARATOR}+ {DOUBLE_QUOTE}
+//WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} [\w]+ | {COLON} | {FILE_PATH} | {SEPARATOR}+ {DOUBLE_QUOTE}
+//WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} [\w]+ | {FILE_PATH} {DOUBLE_QUOTE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} {FILE_PATH} {DOUBLE_QUOTE}
 
 
 
@@ -68,7 +79,6 @@ NO_PARAMS_BINDING = "stageSize"
 %state BINDING_PARAMS
 %state STYLE_PARAMS
 
-%state WORD_INSIDE_STYLE
 
 
 
@@ -103,17 +113,20 @@ NO_PARAMS_BINDING = "stageSize"
 
 <ELEMENT_DEFINITION> {
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
-    {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
-    {SEPARATOR}+                                    { return UssTypes.SEPARATOR; }
-    {EMPTY_TOKEN}                                   { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
+    {ELEMENT_NAME}                                    { return UssTypes.ELEMENT_NAME; }
+    {EMPTY_TOKEN}                                     { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
 }
+
+//<BLOCK_DEFINITION> {
+//    {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
+//}
 
 <BINDING_DEFINITION> {
     {SEPARATOR}+                                             { return UssTypes.SEPARATOR; }
     {BINDING_NAME}                                           { return UssTypes.BINDING_NAME; }
-    {NO_PARAMS_BINDING}                                        { yybegin(BINDING_PARAMS); return UssTypes.NO_PARAMS_BINDING; }
+    {NO_PARAMS_BINDING}                                      { yybegin(BINDING_PARAMS); return UssTypes.NO_PARAMS_BINDING; }
     {BINDING_PROP}                                           { return UssTypes.BINDING_PROP; }
-    {BINDING_PROP_FUNCTION}                                   { return UssTypes.BINDING_PROP_FUNCTION; }
+    {BINDING_PROP_FUNCTION}                                  { return UssTypes.BINDING_PROP_FUNCTION; }
     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
     {DOUBLE_QUOTE}                                           { yybegin(BINDING_PARAMS); return UssTypes.DOUBLE_QUOTE; }
 }
@@ -130,27 +143,27 @@ NO_PARAMS_BINDING = "stageSize"
     {CLASS_NAME}                                      { yybegin(YYINITIAL); return UssTypes.CLASS_NAME; }
 }
 
+
+
+
 // TODO ; add here
 // TODO params for bindings from code(docs)
 <BINDING_PARAMS>{
-    {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON} | {VIRGULE}             { return UssTypes.WORD; }
-    {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
-    {DOUBLE_QUOTE}                                           { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
+    {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}             { return UssTypes.WORD; }
+    {SEPARATOR}+                                                         { return UssTypes.SEPARATOR; }
+    {DOUBLE_QUOTE}                                                       { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
 }
 
 <STYLE_PARAMS>{
+     {WORD_INSIDE_QUOTE}                                       { return UssTypes.WORD_INSIDE_QUOTE; }
+     {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
      {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
      {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
      {COLON}                                                  { return UssTypes.COLON; }
      {VIRGULE}                                                  { return UssTypes.VIRGULE; }
      {EMPTY_TOKEN}                                            { return UssTypes.EMPTY_TOKEN; }
-     {DOUBLE_QUOTE}                                           { yybegin(WORD_INSIDE_STYLE); return UssTypes.DOUBLE_QUOTE; }
+
      {R_PARENTHESIS}                                      { yybegin(STYLE_DEFINITION); return UssTypes.R_PARENTHESIS; }
-}
-<WORD_INSIDE_STYLE>{
-     {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}            { return UssTypes.WORD; }
-     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
-     {DOUBLE_QUOTE}                                           { yybegin(STYLE_PARAMS); return UssTypes.DOUBLE_QUOTE; }
 }
 
 .                                                           { return TokenType.BAD_CHARACTER; }

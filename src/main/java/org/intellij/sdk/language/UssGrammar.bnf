@@ -17,6 +17,7 @@
 
 ussFile ::= item_*
 
+//private item_ ::= comment | newline | token
 private item_ ::= comment | newline | token
 
 comment ::= COMMENT_EXPR
@@ -25,17 +26,33 @@ newline ::= CRLF
 
 separator_expr ::= SEPARATOR
 
+// experimental
+binding_token ::= L_PARENTHESIS BINDING SEPARATOR BINDING_NAME SEPARATOR DOUBLE_QUOTE ({ WORD | SEPARATOR }+) DOUBLE_QUOTE R_PARENTHESIS
 
+class_token ::= L_PARENTHESIS CLASS SEPARATOR CLASS_NAME R_PARENTHESIS
+
+style_param ::= L_PARENTHESIS ELEMENT_NAME SEPARATOR ({ WORD | HEX_NUMBER | WORD_INSIDE_QUOTE }+) R_PARENTHESIS
+
+style_token ::= L_PARENTHESIS STYLE SEPARATOR (style_param)+ R_PARENTHESIS
+
+block_token ::=  L_PARENTHESIS BLOCK SEPARATOR ({block_token|binding_token|style_token|class_token|separator_expr|}+) R_PARENTHESIS
+
+token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR EMPTY_TOKEN ({separator_expr|block_token|binding_token|style_token|class_token}+) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+
+
+// old
 
 word_expr ::= (WORD | DOUBLE_QUOTE | EMPTY_TOKEN | COLON | VIRGULE)+
-
+//
 service ::= ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS | STYLE | SPECIAL_IDENTIFIER
-
+//
 name_expr ::= ELEMENT_NAME | BINDING_NAME | BINDING_PROP | NO_PARAMS_BINDING | BINDING_PROP_FUNCTION | CLASS_NAME
+//
+//token_fill ::= service|name_expr|separator_expr|word_expr|newline
 
-token_fill ::= service|name_expr|separator_expr|word_expr|newline
+//block_expr ::= L_PARENTHESIS BLOCK SEPARATOR({block_expr}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
-token ::= L_PARENTHESIS({token|token_fill}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+//token ::= L_PARENTHESIS({token|token_fill}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
 
 

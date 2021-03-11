@@ -53,12 +53,12 @@ public class UssSyntaxHighlighter extends SyntaxHighlighterBase {
             return ELEMENT_KEYS;
         } else if (tokenType.equals(UssTypes.BINDING)) {
             return BLOCK_KEYS;
-        } else if (tokenType.equals(UssTypes.BLOCK)) {
-            return BLOCK_KEYS;
-        } else if (tokenType.equals(UssTypes.CLASS)) {
-            return BLOCK_KEYS;
-        } else if (tokenType.equals(UssTypes.CSS)) {
-            return BLOCK_KEYS;
+//        } else if (tokenType.equals(UssTypes.BLOCK)) {
+//            return BLOCK_KEYS;
+//        } else if (tokenType.equals(UssTypes.CLASS)) {
+//            return BLOCK_KEYS;
+//        } else if (tokenType.equals(UssTypes.CSS)) {
+//            return BLOCK_KEYS;
         } else if (tokenType.equals(UssTypes.STYLE)) {
             return STYLE_KEYS;
         } else {
