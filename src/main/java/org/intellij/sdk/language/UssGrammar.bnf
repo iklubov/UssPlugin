@@ -27,6 +27,8 @@ newline ::= CRLF
 separator_expr ::= SEPARATOR
 
 // experimental
+special_token ::= L_PARENTHESIS SPECIAL_IDENTIFIER R_PARENTHESIS
+
 binding_token ::= L_PARENTHESIS BINDING SEPARATOR BINDING_NAME SEPARATOR DOUBLE_QUOTE ({ WORD | SEPARATOR }+) DOUBLE_QUOTE R_PARENTHESIS
 
 class_token ::= L_PARENTHESIS CLASS SEPARATOR CLASS_NAME R_PARENTHESIS
@@ -35,12 +37,12 @@ style_param ::= L_PARENTHESIS ELEMENT_NAME SEPARATOR ({ WORD | HEX_NUMBER | WORD
 
 style_token ::= L_PARENTHESIS STYLE SEPARATOR (style_param)+ R_PARENTHESIS
 
-block_token ::=  L_PARENTHESIS BLOCK SEPARATOR ({block_token|binding_token|style_token|class_token|separator_expr|}+) R_PARENTHESIS
+block_token ::=  L_PARENTHESIS BLOCK SEPARATOR ({block_token|binding_token|style_token|class_token|separator_expr|special_token}+) R_PARENTHESIS
 
-token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR EMPTY_TOKEN ({separator_expr|block_token|binding_token|style_token|class_token}+) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR EMPTY_TOKEN ({separator_expr|block_token|binding_token|style_token|class_token|special_token}+) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
 
-// old
+// todo needed for ussLexer support
 
 word_expr ::= (WORD | DOUBLE_QUOTE | EMPTY_TOKEN | COLON | VIRGULE)+
 //
