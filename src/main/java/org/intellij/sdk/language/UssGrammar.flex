@@ -26,14 +26,11 @@ WORD=["-"]*[\w]+|[$]+|["-"]|["'"]|[";"]|["?"]|["+"]|["."] | ["*"] | ["{"] | ["}"
 EMPTY_TOKEN = ["("][\s]*[")"]
 
 // SERVICE EXPRESSIONS
-//HEX_NUMBER= "0x"\d*|["a"]|["b"]|["c"]|["d"]|["e"]|["f"]
-WORD_EXP = ([A-Fa-f]+)
+//WORD_EXP = ([A-Fa-f]+)
+
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
-//FILE_PATH = "url:" [A-Fa-f]+ | ( (\.\. | [A-Fa-f]+ ) \/)+
-FILE_PATH = "url:" ((\.{2}\/) | {WORD_EXP})+
-//WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} [\w]+ | {COLON} | {L_PARENTHESIS} | {R_PARENTHESIS} | {SEPARATOR}+ {DOUBLE_QUOTE}
-//WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} [\w]+ | {COLON} | {FILE_PATH} | {SEPARATOR}+ {DOUBLE_QUOTE}
-//WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} [\w]+ | {FILE_PATH} {DOUBLE_QUOTE}
+FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
+
 WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} {FILE_PATH} {DOUBLE_QUOTE}
 
 
