@@ -16,6 +16,7 @@ import org.intellij.sdk.language.psi.UssTypes;
 %eof{  return;
 %eof}
 
+// todo review
 L_PARENTHESIS="("
 R_PARENTHESIS=")"
 DOUBLE_QUOTE = "\""
@@ -35,7 +36,7 @@ SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
 PERCENTAGE_NUMBER = \d+\%
 STYLE_PARAM_SPECIAL = "absolute"
-STYLE_PIXEL_PARAM = (\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) "px"
+STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) "px"
 
 // todo - paths are not the only one
 WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} {FILE_PATH} {DOUBLE_QUOTE}
