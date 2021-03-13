@@ -1,9 +1,6 @@
 /idea-flex.skeleton
 /jflex-1.7.0-2.jar
-/build/
+/src/main/gen/
 /.gradle/
+/build/
 /.idea/
-/gradle/
-/src/main/gen/
-/src/uss/
-/src/main/gen/
