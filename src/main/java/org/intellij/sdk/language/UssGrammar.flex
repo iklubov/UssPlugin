@@ -22,8 +22,8 @@ R_PARENTHESIS=")"
 DOUBLE_QUOTE = "\""
 COLON = [":"]
 VIRGULE = ","
-SEPARATOR=[\s]+
-WORD=["-"]*[\w]+|[$]+|["-"]|["'"]|[";"]|["?"]|["+"]|["."] | ["*"] | ["{"] | ["}"] | [">"] | ["<"] | ["="] | ["!"] | ["%"] | ["\/"] | ["&"]|["|"]|["]"]|["["]|["—"]
+SEPARATOR= \s+
+WORD = \w+
 EMPTY_TOKEN = ["("][\s]*[")"]
 
 // SERVICE EXPRESSIONS
@@ -35,7 +35,7 @@ SCREEN_SIZE_TYPE = "SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
 PERCENTAGE_NUMBER = \d+\%
-STYLE_PARAM_SPECIAL = "absolute"
+STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) "px"
 
 // todo - paths are not the only one
@@ -72,6 +72,9 @@ MOVIECLIP_NAME = \w+
 
 NO_PARAMS_BINDING = "stageSize"
 
+//TODO REMOVE
+//["-"]|["'"]|[";"]|["?"]|["+"]|["."] | ["*"] | ["{"] | ["}"] | [">"] | ["<"] | ["="] | ["!"] | ["%"] | ["\/"] | ["&"]|["|"]|["]"]|["["]|["—"]
+BINDING_INSIDE_PARAMS = {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"
 
 //WHITE_SPACE=[\ \n\t\f]
 //COMMENT=("//")[^\r\n]*
@@ -122,7 +125,7 @@ NO_PARAMS_BINDING = "stageSize"
 
 <YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
 //
-<YYINITIAL> {WORD}                               			 { yybegin(YYINITIAL); return UssTypes.WORD; }
+//<YYINITIAL> {WORD}                               			 { yybegin(YYINITIAL); return UssTypes.WORD; }
 
 <YYINITIAL> {R_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 //<YYINITIAL> {DOUBLE_QUOTE}                                     { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
@@ -165,6 +168,7 @@ NO_PARAMS_BINDING = "stageSize"
     {MOVIECLIP_NAME}                                  { yybegin(YYINITIAL); return UssTypes.MOVIECLIP_NAME; }
 }
 
+
 <REPLACE_DEFINITION> {
       {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
       {EMPTY_TOKEN}                                       { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
@@ -181,24 +185,25 @@ NO_PARAMS_BINDING = "stageSize"
 // TODO ; add here
 // TODO params for bindings from code(docs)
 <BINDING_PARAMS>{
-    {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}             { return UssTypes.WORD; }
+    {BINDING_INSIDE_PARAMS}                                              { return UssTypes.WORD; }
     {SEPARATOR}+                                                         { return UssTypes.SEPARATOR; }
     {DOUBLE_QUOTE}                                                       { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
 }
-// todo list of correct style params instead of ELEMENT_NAME
+
 //
 <STYLE_PARAMS>{
-     {SCREEN_SCALE}                                              { return UssTypes.SCREEN_SCALE; }
+    // todo list of correct style params instead of ELEMENT_NAME
+
+     {SCREEN_SCALE}                                             { return UssTypes.SCREEN_SCALE; }
      {WORD_INSIDE_QUOTE}                                       { return UssTypes.WORD_INSIDE_QUOTE; }
      {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
-     {PERCENTAGE_NUMBER}                                               { return UssTypes.PERCENTAGE_NUMBER; }
+     {PERCENTAGE_NUMBER}                                        { return UssTypes.PERCENTAGE_NUMBER; }
      {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
      {STYLE_PIXEL_PARAM}                                       { return UssTypes.STYLE_PIXEL_PARAM; }
-     {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
-     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
-     {COLON}                                                  { return UssTypes.COLON; }
-     {VIRGULE}                                                  { return UssTypes.VIRGULE; }
-     {EMPTY_TOKEN}                                            { return UssTypes.EMPTY_TOKEN; }
+      //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
+      // all styles available
+      {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
+      {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
 
      {R_PARENTHESIS}                                      { yybegin(STYLE_DEFINITION); return UssTypes.R_PARENTHESIS; }
 }
