@@ -30,9 +30,12 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
+SCREEN_SIZE_TYPE = "SXS"|"MS"|"M"
+SCREEN_SCALE_TYPE = "aw"|"ah"
+
 
 WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} {FILE_PATH} {DOUBLE_QUOTE}
-
+SCREEN_SCALE = \d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{VIRGULE}\d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{SCREEN_SCALE_TYPE}
 
 
 
@@ -152,6 +155,7 @@ NO_PARAMS_BINDING = "stageSize"
 }
 
 <STYLE_PARAMS>{
+     {SCREEN_SCALE}                                              { return UssTypes.SCREEN_SCALE; }
      {WORD_INSIDE_QUOTE}                                       { return UssTypes.WORD_INSIDE_QUOTE; }
      {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
      {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
