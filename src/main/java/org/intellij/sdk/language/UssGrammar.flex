@@ -30,10 +30,14 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
-SCREEN_SIZE_TYPE = "SXS"|"MS"|"M"
+SCREEN_SIZE_TYPE = "SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"
 SCREEN_SCALE_TYPE = "aw"|"ah"
+REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
+PERCENTAGE_NUMBER = \d+\%
+STYLE_PARAM_SPECIAL = "absolute"
+STYLE_PIXEL_PARAM = (\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) "px"
 
-
+// todo - paths are not the only one
 WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} {FILE_PATH} {DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{VIRGULE}\d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{SCREEN_SCALE_TYPE}
 
@@ -50,12 +54,16 @@ BINDING = "bind"
 IMPORT = "import"
 CLASS = "class"
 STYLE = "style"
+
+// different block types
 TEXT_FIELD = "tf"
+HBLOCK = "hblock"
+MOVIECLIP = "mc"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"
 
-ELEMENT_NAME = [\w]+
-CLASS_NAME = "$"[\w]+
+ELEMENT_NAME = \w+
+CLASS_NAME = "$"\w+
 BINDING_NAME = "controller"|"child"|"childParentScope"|"instance"|"event"|"dispatch"|"dispatchDelayReset"|"style"|"class"|"sync"|"repeat"|"repeatCache"|"repeatObject"|"dataRefDH"|"watchDH"|"entityDH"|"firstEntityDH"|"handleEventDH"|"fxInstance"|"mrMeeseeks"|"collectionDH"|"collectionDHById"|"collectionRepeatDH"|"collectionDesign"|"collectionFields"|"primaryEntityDH"|"clikList"|"draggableWindow"|"draggable"|"droppable"|"resize"|"appear"|"fade"|"transition"|"timestampTween"|"textCountdown"|"pluralText"|"tooltip"|"popup"|"popupNoCache"|"menu"|"blurLayer"|"blurMap"|"input"|"request"|"action"|"focus"|"sequence"|"feature"|"catch"|"catchProperty"|"var"|"watch"|"actionIsDisplay"|"scopeHoldRepeat"|"clickSplit"|"substitute"|"scopeTrace"|"changeDispatch"|"countdown"|"file"|"imeEnable"|"linearChart"|"eventSequence"|"contains"|"levelToFeature"|"timeFormat"|"serverTime"|"generator"|"generatorDH"|"clock"|"inoutAction"|"soundOn"|"vTileHack"|"blockSize"|"stageCoord"|"scrollController"|"scrollControllerCentered"|"catchDH"|"keyboard"|"debugWrite"|"debugRead"|"debugReadAll"|"debugSend"|"debugReceive"|"debugRewrite"|"debugTypeOf"|"debugScope"|"debugDataProvider"|"debugBlockInfo"|"debugScopeDraw"|"concat"|"colorTransform"|"clipboard"|"resource"|"slice"|"mc"|"objectUnderPoint"|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"dragCursor"|"makeScreenshot"|"directEvent"|"visible"
 BINDING_PROP = [\w]+
 BINDING_PROP_FUNCTION = [\w]+"!"
@@ -75,6 +83,8 @@ NO_PARAMS_BINDING = "stageSize"
 %state BINDING_DEFINITION
 %state STYLE_DEFINITION
 %state CLASS_DEFINITION
+%state REPLACE_DEFINITION
+%state MOVIECLIP_DEFINITION
 
 %state BINDING_PARAMS
 %state STYLE_PARAMS
@@ -99,9 +109,14 @@ NO_PARAMS_BINDING = "stageSize"
 <YYINITIAL> {CLASS}                                         { yybegin(CLASS_DEFINITION); return UssTypes.CLASS; }
 
 // todo
+
 <YYINITIAL> {BLOCK}                                     { yybegin(YYINITIAL); return UssTypes.BLOCK; }
+<YYINITIAL> {TEXT_FIELD}                                     { yybegin(YYINITIAL); return UssTypes.TEXT_FIELD; }
+<YYINITIAL> {HBLOCK}                                     { yybegin(YYINITIAL); return UssTypes.HBLOCK; }
+<YYINITIAL> {MOVIECLIP}                                     { yybegin(MOVIECLIP_DEFINITION); return UssTypes.MOVIECLIP; }
 <YYINITIAL> {CSS}                                     { yybegin(YYINITIAL); return UssTypes.CSS; }
 <YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(YYINITIAL); return UssTypes.SPECIAL_IDENTIFIER; }
+<YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_DEFINITION); return UssTypes.REPLACE_EXPRESSION; }
 
 <YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
 //
@@ -143,6 +158,21 @@ NO_PARAMS_BINDING = "stageSize"
     {CLASS_NAME}                                      { yybegin(YYINITIAL); return UssTypes.CLASS_NAME; }
 }
 
+<MOVIECLIP_DEFINITION> {
+    {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
+    {MOVIECLIP_NAME}                                  { yybegin(YYINITIAL); return UssTypes.MOVIECLIP_NAME; }
+}
+
+<REPLACE_DEFINITION> {
+      {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
+      {EMPTY_TOKEN}                                       { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
+      {L_PARENTHESIS}                                    {  return UssTypes.L_PARENTHESIS; }
+      {DOUBLE_QUOTE}                                        { return UssTypes.DOUBLE_QUOTE; }
+      {WORD}                                           { return UssTypes.WORD; }
+      {VIRGULE}                                           { return UssTypes.VIRGULE; }
+      {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
+}
+
 
 
 
@@ -153,11 +183,15 @@ NO_PARAMS_BINDING = "stageSize"
     {SEPARATOR}+                                                         { return UssTypes.SEPARATOR; }
     {DOUBLE_QUOTE}                                                       { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
 }
-
+// todo list of correct style params instead of ELEMENT_NAME
+//
 <STYLE_PARAMS>{
      {SCREEN_SCALE}                                              { return UssTypes.SCREEN_SCALE; }
      {WORD_INSIDE_QUOTE}                                       { return UssTypes.WORD_INSIDE_QUOTE; }
      {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
+     {PERCENTAGE_NUMBER}                                               { return UssTypes.PERCENTAGE_NUMBER; }
+     {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
+     {STYLE_PIXEL_PARAM}                                       { return UssTypes.STYLE_PIXEL_PARAM; }
      {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
      {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
      {COLON}                                                  { return UssTypes.COLON; }
