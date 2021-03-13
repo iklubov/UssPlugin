@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="75db5e92-92be-4cc8-b347-9e6153751f35" name="Default Changelist" comment="git ignore">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+    <list default="true" id="75db5e92-92be-4cc8-b347-9e6153751f35" name="Default Changelist" comment="- virgule&#10;- special identifier&#10;-">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/org/intellij/sdk/language/parser/UssParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gen/org/intellij/sdk/language/parser/UssParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gen/org/intellij/sdk/language/psi/UssTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gen/org/intellij/sdk/language/psi/UssTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intellij/sdk/language/UssGrammar.bnf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intellij/sdk/language/UssGrammar.bnf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intellij/sdk/language/UssGrammar.flex" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intellij/sdk/language/UssGrammar.flex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intellij/sdk/language/UssSyntaxHighlighter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intellij/sdk/language/UssSyntaxHighlighter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/achievements.uss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testText.uss" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,11 +82,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="FxmlFile" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1oPsGbQw2eTLY6JcsBYqaVNQDOM" />
   <component name="PropertiesComponent">
@@ -108,7 +100,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Uss" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Shell Script" />
   </component>
   <component name="PsiViewer.ProjectComponent">
     <option name="HIGHLIGHT" value="false" />
@@ -120,6 +112,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hpa.i_klubov\IdeaProjects\ussplugin\src\uss" />
       <recent name="C:\Users\hpa.i_klubov\IdeaProjects\ussplugin\src" />
       <recent name="C:\Users\hpa.i_klubov\IdeaProjects\ussplugin\src\main" />
       <recent name="C:\Users\hpa.i_klubov\IdeaProjects\ussplugin\src\main\resources" />
@@ -262,7 +255,73 @@
       <workItem from="1613669903146" duration="2196000" />
       <workItem from="1614427187602" duration="17694000" />
       <workItem from="1614523152466" duration="5262000" />
+      <workItem from="1614584338175" duration="236000" />
+      <workItem from="1614695821853" duration="886000" />
+      <workItem from="1614888018478" duration="3450000" />
+      <workItem from="1614928828588" duration="729000" />
+      <workItem from="1615117014212" duration="3906000" />
+      <workItem from="1615226025217" duration="437000" />
+      <workItem from="1615274181035" duration="282000" />
+      <workItem from="1615486547557" duration="11883000" />
+      <workItem from="1615630663662" duration="2702000" />
     </task>
+    <task id="LOCAL-00001" summary="git ignore">
+      <created>1614545463197</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1614545463197</updated>
+    </task>
+    <task id="LOCAL-00002" summary="style token added">
+      <created>1614545540770</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614545540770</updated>
+    </task>
+    <task id="LOCAL-00003" summary="stype and class definitions added">
+      <created>1615121637943</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615121637943</updated>
+    </task>
+    <task id="LOCAL-00004" summary="- virgule&#10;- special identifier&#10;-">
+      <created>1615233461367</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1615233461367</updated>
+    </task>
+    <task id="LOCAL-00005" summary="- new token system&#10;- word, hex, filepath&#10;- word inside quote refactoring">
+      <created>1615496110585</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1615496110585</updated>
+    </task>
+    <task id="LOCAL-00006" summary="filepath regexp">
+      <created>1615632601857</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1615632601857</updated>
+    </task>
+    <task id="LOCAL-00007" summary="gen files try">
+      <created>1615633107491</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1615633107491</updated>
+    </task>
+    <task id="LOCAL-00008" summary="gradle">
+      <created>1615633366367</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615633366367</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,6 +352,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="git ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="git ignore" />
+    <MESSAGE value="style token added" />
+    <MESSAGE value="stype and class definitions added" />
+    <MESSAGE value="- virgule&#10;- special identifier&#10;-" />
+    <MESSAGE value="- new token system&#10;- word, hex, filepath&#10;- word inside quote refactoring" />
+    <MESSAGE value="filepath regexp" />
+    <MESSAGE value="gen files try" />
+    <MESSAGE value="gradle" />
+    <option name="LAST_COMMIT_MESSAGE" value="gradle" />
   </component>
 </project>
