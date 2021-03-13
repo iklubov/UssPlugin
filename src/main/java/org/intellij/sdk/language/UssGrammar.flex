@@ -73,7 +73,6 @@ MOVIECLIP_NAME = \w+
 NO_PARAMS_BINDING = "stageSize"
 
 //TODO REMOVE
-//["-"]|["'"]|[";"]|["?"]|["+"]|["."] | ["*"] | ["{"] | ["}"] | [">"] | ["<"] | ["="] | ["!"] | ["%"] | ["\/"] | ["&"]|["|"]|["]"]|["["]|["—"]
 BINDING_INSIDE_PARAMS = {WORD}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"
 
 //WHITE_SPACE=[\ \n\t\f]
