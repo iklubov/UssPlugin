@@ -66,6 +66,10 @@ IMPORT = "import"
 CLASS = "class"
 STYLE = "style"
 PARAMS = "params"
+// todo think about it
+REPLACE_START = \<"replace"
+REPLACE_END = "replace"\>
+REPLACE_SIMPLE_CONTENT = \'?(\w+|\d+)\'?
 
 // todo replace with bind name
 BINDING_PROPERTY = "name"|"text"
@@ -104,6 +108,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 %state BINDING_DEFINITION
 %state STYLE_DEFINITION
 %state CLASS_DEFINITION
+%state REPLACE_USAGE
 %state REPLACE_DEFINITION
 %state MOVIECLIP_DEFINITION
 %state SPECIAL_IDENTIFIER_DEFINITION
@@ -121,18 +126,19 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 <YYINITIAL> {COMMENT_EXPR}                      				 { yybegin(YYINITIAL); return UssTypes.COMMENT; }
 <YYINITIAL> {CRLF}+												{ yybegin(YYINITIAL); return UssTypes.CRLF; }
 <YYINITIAL> {SEPARATOR}                                     { yybegin(YYINITIAL); return UssTypes.SEPARATOR; }
+<YYINITIAL> {REPLACE_START}                                     { yybegin(REPLACE_DEFINITION); return UssTypes.REPLACE_START; }
+<YYINITIAL> {REPLACE_END}                                     { yybegin(YYINITIAL); return UssTypes.REPLACE_END; }
+
 
 
 <YYINITIAL> {L_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.L_PARENTHESIS; }
 
 <YYINITIAL> {ELEMENT}                                       { yybegin(ELEMENT_DEFINITION); return UssTypes.ELEMENT; }
+// TOP LEVEL COMMON USE
 <YYINITIAL> {BINDING}                                       { yybegin(BINDING_DEFINITION); return UssTypes.BINDING; }
 <YYINITIAL> {BINDING_PROPERTY}                              { yybegin(BINDING_DEFINITION); return UssTypes.BINDING; }
 <YYINITIAL> {STYLE}                                          { yybegin(STYLE_DEFINITION); return UssTypes.STYLE; }
 <YYINITIAL> {CLASS}                                         { yybegin(CLASS_DEFINITION); return UssTypes.CLASS; }
-
-// todo
-
 <YYINITIAL> {BLOCK}                                     { yybegin(YYINITIAL); return UssTypes.BLOCK; }
 <YYINITIAL> {TEXT_FIELD}                                     { yybegin(YYINITIAL); return UssTypes.TEXT_FIELD; }
 <YYINITIAL> {HBLOCK}                                     { yybegin(YYINITIAL); return UssTypes.HBLOCK; }
@@ -141,13 +147,22 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 <YYINITIAL> {CSS}                                         { yybegin(YYINITIAL); return UssTypes.CSS; }
 //looks like style
 <YYINITIAL> {PARAMS}                                         { yybegin(STYLE_DEFINITION); return UssTypes.PARAMS; }
-<YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(SPECIAL_IDENTIFIER_DEFINITION); return UssTypes.SPECIAL_IDENTIFIER; }
-<YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_DEFINITION); return UssTypes.REPLACE_EXPRESSION; }
 
-<YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
+<YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(SPECIAL_IDENTIFIER_DEFINITION); return UssTypes.SPECIAL_IDENTIFIER; }
+
+<YYINITIAL> {REPLACE_SIMPLE_CONTENT}                         { yybegin(YYINITIAL); return UssTypes.REPLACE_SIMPLE_CONTENT; }
+<YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_USAGE); return UssTypes.REPLACE_EXPRESSION; }
+
+
+//<YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
 
 <YYINITIAL> {R_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 
+<REPLACE_DEFINITION> {
+    {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
+    {REPLACE_EXPRESSION}                               { return UssTypes.ELEMENT_NAME; }
+    {EMPTY_TOKEN}                                     { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
+}
 
 <ELEMENT_DEFINITION> {
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
@@ -186,7 +201,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 }
 
 
-<REPLACE_DEFINITION> {
+<REPLACE_USAGE> {
       {L_PARENTHESIS}                                    {  return UssTypes.L_PARENTHESIS; }
       {REPLACE_INSIDE_PARAMS}                                        { return UssTypes.REPLACE_INSIDE_PARAMS; }
       {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
