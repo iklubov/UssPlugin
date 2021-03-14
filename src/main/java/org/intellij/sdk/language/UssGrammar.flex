@@ -164,6 +164,7 @@ REPLACE_INSIDE_PARAMS = ({WORD}|{VIRGULE}|{DOUBLE_QUOTE}|{SEPARATOR}+|"."|"'"|"{
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
     {L_PARENTHESIS}                                    { yybegin(STYLE_PARAMS); return UssTypes.L_PARENTHESIS; }
     {EMPTY_TOKEN}                                       { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
+    {COMMENT_EXPR}                                       { return UssTypes.COMMENT_EXPR; }
     {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
