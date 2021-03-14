@@ -33,6 +33,8 @@ binding_token ::= L_PARENTHESIS BINDING SEPARATOR {BINDING_NAME | BINDING_PROP |
 
 no_params_binding_token ::= L_PARENTHESIS BINDING SEPARATOR NO_PARAMS_BINDING SEPARATOR* R_PARENTHESIS
 
+property_binding_token ::= L_PARENTHESIS BINDING SEPARATOR DOUBLE_QUOTE ({ WORD | SEPARATOR }+) DOUBLE_QUOTE R_PARENTHESIS
+
 class_token ::= L_PARENTHESIS CLASS SEPARATOR CLASS_NAME R_PARENTHESIS
 
 style_param ::= L_PARENTHESIS {ELEMENT_NAME | STYLE_PARAM_SPECIAL} SEPARATOR ({ HEX_NUMBER | WORD_INSIDE_QUOTE | SCREEN_SCALE | PERCENTAGE_NUMBER | STYLE_PARAM_SPECIAL | STYLE_PIXEL_PARAM | FRACTIONAL_NUMBER }+) R_PARENTHESIS
@@ -42,9 +44,9 @@ style_token ::= L_PARENTHESIS STYLE SEPARATOR ({style_param|separator_expr}+) R_
 replace_token ::= REPLACE_EXPRESSION L_PARENTHESIS (REPLACE_INSIDE_PARAMS*) R_PARENTHESIS
 
 //TODO remove movieclip from here
-block_token ::=  L_PARENTHESIS {BLOCK | TEXT_FIELD | HBLOCK | MOVIECLIP} SEPARATOR MOVIECLIP_NAME* SEPARATOR* ({block_token|binding_token|no_params_binding_token|style_token|class_token|comment|replace_token|separator_expr|special_token|newline}*) R_PARENTHESIS
+block_token ::=  L_PARENTHESIS {BLOCK | TEXT_FIELD | HBLOCK | MOVIECLIP | UBLOCK} SEPARATOR MOVIECLIP_NAME* SEPARATOR* ({block_token|binding_token|no_params_binding_token|property_binding_token|style_token|class_token|comment|replace_token|separator_expr|special_token|newline}*) R_PARENTHESIS
 
-token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR EMPTY_TOKEN ({block_token|binding_token|no_params_binding_token|style_token|class_token|special_token|comment|replace_token|separator_expr|newline}*) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR EMPTY_TOKEN ({block_token|binding_token|no_params_binding_token|property_binding_token|style_token|class_token|special_token|comment|replace_token|separator_expr|newline}*) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
 
 // todo needed for ussLexer support
