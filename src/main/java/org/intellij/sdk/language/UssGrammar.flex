@@ -20,7 +20,7 @@ import org.intellij.sdk.language.psi.UssTypes;
 L_PARENTHESIS="("
 R_PARENTHESIS=")"
 DOUBLE_QUOTE = "\""
-COLON = [":"]
+COLON = ":"
 VIRGULE = ","
 SEPARATOR= \s+
 WORD = \w+
@@ -31,15 +31,18 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
-SCREEN_SIZE_TYPE = "SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"
+STRANGE_EXPRESSION = \[\w+\]
+SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"){1}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
-PERCENTAGE_NUMBER = \d+\%
-STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"
-STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) "px"
+PERCENTAGE_NUMBER = \-?\d+\%"f"?
+// and negative))
+FRACTIONAL_NUMBER = \-?\d+(\.\d+)?
+STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"
+STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) ("px")?
 
 // todo - paths are not the only one
-WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} {FILE_PATH} {DOUBLE_QUOTE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}) {DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{VIRGULE}\d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{SCREEN_SCALE_TYPE}
 
 
@@ -61,7 +64,7 @@ TEXT_FIELD = "tf"
 HBLOCK = "hblock"
 MOVIECLIP = "mc"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"
 
 ELEMENT_NAME = \w+
 CLASS_NAME = "$"\w+
@@ -72,8 +75,9 @@ MOVIECLIP_NAME = \w+
 
 NO_PARAMS_BINDING = "stageSize"
 
-//TODO REMOVE
-BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|")+
+//TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
+BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—")+
+REPLACE_INSIDE_PARAMS = ({WORD}|{VIRGULE}|{DOUBLE_QUOTE}|{SEPARATOR}+|".")+
 
 //WHITE_SPACE=[\ \n\t\f]
 //COMMENT=("//")[^\r\n]*
@@ -89,6 +93,7 @@ BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COL
 %state CLASS_DEFINITION
 %state REPLACE_DEFINITION
 %state MOVIECLIP_DEFINITION
+%state SPECIAL_IDENTIFIER_DEFINITION
 
 %state BINDING_PARAMS
 %state STYLE_PARAMS
@@ -118,16 +123,13 @@ BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COL
 <YYINITIAL> {TEXT_FIELD}                                     { yybegin(YYINITIAL); return UssTypes.TEXT_FIELD; }
 <YYINITIAL> {HBLOCK}                                     { yybegin(YYINITIAL); return UssTypes.HBLOCK; }
 <YYINITIAL> {MOVIECLIP}                                     { yybegin(MOVIECLIP_DEFINITION); return UssTypes.MOVIECLIP; }
-<YYINITIAL> {CSS}                                     { yybegin(YYINITIAL); return UssTypes.CSS; }
-<YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(YYINITIAL); return UssTypes.SPECIAL_IDENTIFIER; }
+<YYINITIAL> {CSS}                                         { yybegin(YYINITIAL); return UssTypes.CSS; }
+<YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(SPECIAL_IDENTIFIER_DEFINITION); return UssTypes.SPECIAL_IDENTIFIER; }
 <YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_DEFINITION); return UssTypes.REPLACE_EXPRESSION; }
 
 <YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
-//
-//<YYINITIAL> {WORD}                               			 { yybegin(YYINITIAL); return UssTypes.WORD; }
 
 <YYINITIAL> {R_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
-//<YYINITIAL> {DOUBLE_QUOTE}                                     { yybegin(YYINITIAL); return UssTypes.DOUBLE_QUOTE; }
 
 
 <ELEMENT_DEFINITION> {
@@ -136,18 +138,15 @@ BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COL
     {EMPTY_TOKEN}                                     { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
 }
 
-//<BLOCK_DEFINITION> {
-//    {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
-//}
 
 <BINDING_DEFINITION> {
-    {SEPARATOR}+                                             { return UssTypes.SEPARATOR; }
     {BINDING_NAME}                                           { return UssTypes.BINDING_NAME; }
-    {NO_PARAMS_BINDING}                                      { yybegin(BINDING_PARAMS); return UssTypes.NO_PARAMS_BINDING; }
+    {NO_PARAMS_BINDING}                                      { return UssTypes.NO_PARAMS_BINDING; }
     {BINDING_PROP}                                           { return UssTypes.BINDING_PROP; }
     {BINDING_PROP_FUNCTION}                                  { return UssTypes.BINDING_PROP_FUNCTION; }
     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
     {DOUBLE_QUOTE}                                           { yybegin(BINDING_PARAMS); return UssTypes.DOUBLE_QUOTE; }
+    {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
 <STYLE_DEFINITION> {
@@ -169,12 +168,13 @@ BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COL
 
 
 <REPLACE_DEFINITION> {
-      {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
-      {EMPTY_TOKEN}                                       { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
       {L_PARENTHESIS}                                    {  return UssTypes.L_PARENTHESIS; }
-      {DOUBLE_QUOTE}                                        { return UssTypes.DOUBLE_QUOTE; }
-      {WORD}                                           { return UssTypes.WORD; }
-      {VIRGULE}                                           { return UssTypes.VIRGULE; }
+      {REPLACE_INSIDE_PARAMS}                                        { return UssTypes.REPLACE_INSIDE_PARAMS; }
+      {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
+}
+
+<SPECIAL_IDENTIFIER_DEFINITION> {
+      {REPLACE_INSIDE_PARAMS}                                        { return UssTypes.REPLACE_INSIDE_PARAMS; }
       {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
@@ -199,6 +199,7 @@ BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COL
      {PERCENTAGE_NUMBER}                                        { return UssTypes.PERCENTAGE_NUMBER; }
      {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
      {STYLE_PIXEL_PARAM}                                       { return UssTypes.STYLE_PIXEL_PARAM; }
+      {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
       //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
       // all styles available
       {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
