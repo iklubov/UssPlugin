@@ -58,6 +58,7 @@ BINDING = "bind"
 IMPORT = "import"
 CLASS = "class"
 STYLE = "style"
+PARAMS = "params"
 
 // todo replace with bind name
 BINDING_PROPERTY = "name"
@@ -131,6 +132,8 @@ REPLACE_INSIDE_PARAMS = ({WORD}|{VIRGULE}|{DOUBLE_QUOTE}|{SEPARATOR}+|"."|"'"|"{
 <YYINITIAL> {UBLOCK}                                     { yybegin(MOVIECLIP_DEFINITION); return UssTypes.UBLOCK; }
 <YYINITIAL> {MOVIECLIP}                                     { yybegin(MOVIECLIP_DEFINITION); return UssTypes.MOVIECLIP; }
 <YYINITIAL> {CSS}                                         { yybegin(YYINITIAL); return UssTypes.CSS; }
+//looks like style
+<YYINITIAL> {PARAMS}                                         { yybegin(STYLE_DEFINITION); return UssTypes.PARAMS; }
 <YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(SPECIAL_IDENTIFIER_DEFINITION); return UssTypes.SPECIAL_IDENTIFIER; }
 <YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_DEFINITION); return UssTypes.REPLACE_EXPRESSION; }
 

@@ -41,12 +41,14 @@ style_param ::= L_PARENTHESIS {ELEMENT_NAME | STYLE_PARAM_SPECIAL} SEPARATOR ({ 
 
 style_token ::= L_PARENTHESIS STYLE SEPARATOR ({style_param|separator_expr}+) R_PARENTHESIS
 
+params_token ::= L_PARENTHESIS PARAMS SEPARATOR ({style_param|separator_expr}+) R_PARENTHESIS
+
 replace_token ::= REPLACE_EXPRESSION L_PARENTHESIS (REPLACE_INSIDE_PARAMS*) R_PARENTHESIS
 
 //TODO remove movieclip from here
-block_token ::=  L_PARENTHESIS {BLOCK | TEXT_FIELD | HBLOCK | MOVIECLIP | UBLOCK} SEPARATOR MOVIECLIP_NAME* SEPARATOR* ({block_token|binding_token|no_params_binding_token|property_binding_token|style_token|class_token|comment|replace_token|separator_expr|special_token|newline}*) R_PARENTHESIS
+block_token ::=  L_PARENTHESIS {BLOCK | TEXT_FIELD | HBLOCK | MOVIECLIP | UBLOCK} SEPARATOR MOVIECLIP_NAME* SEPARATOR* ({block_token|binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|comment|replace_token|separator_expr|special_token|newline}*) R_PARENTHESIS
 
-token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR EMPTY_TOKEN ({block_token|binding_token|no_params_binding_token|property_binding_token|style_token|class_token|special_token|comment|replace_token|separator_expr|newline}*) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR EMPTY_TOKEN ({block_token|binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|special_token|comment|replace_token|separator_expr|newline}*) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
 
 // todo needed for ussLexer support
