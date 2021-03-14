@@ -36,7 +36,7 @@ CONTROLLER_PATH = \w+(\.\w+)*
 BACKGROUND_STYLE_PARAM = \w+\:\w+
 SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}{EMPTY_TOKEN}
 SCREEN_SCALE_TYPE = "aw"|"ah"
-REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
+REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+
 // todo 100%px is real, 100%% as well
 PERCENTAGE_NUMBER = \-?\d+\%{1,2}("f"|"px")?
 // and negative))
@@ -150,9 +150,9 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 
 <YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(SPECIAL_IDENTIFIER_DEFINITION); return UssTypes.SPECIAL_IDENTIFIER; }
 
-<YYINITIAL> {REPLACE_SIMPLE_CONTENT}                         { yybegin(YYINITIAL); return UssTypes.REPLACE_SIMPLE_CONTENT; }
+// todo divide replace definition
 <YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_USAGE); return UssTypes.REPLACE_EXPRESSION; }
-
+<YYINITIAL> {REPLACE_SIMPLE_CONTENT}                         { yybegin(YYINITIAL); return UssTypes.REPLACE_SIMPLE_CONTENT; }
 
 //<YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
 
