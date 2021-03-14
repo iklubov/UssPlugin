@@ -104,6 +104,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 
 
 
+%state CSS_DEFINITION
 %state ELEMENT_DEFINITION
 %state BINDING_DEFINITION
 %state STYLE_DEFINITION
@@ -115,6 +116,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 
 %state BINDING_PARAMS
 %state STYLE_PARAMS
+%state CSS_PARAMS
 
 
 
@@ -129,7 +131,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 <YYINITIAL> {REPLACE_START}                                     { yybegin(REPLACE_DEFINITION); return UssTypes.REPLACE_START; }
 <YYINITIAL> {REPLACE_END}                                     { yybegin(YYINITIAL); return UssTypes.REPLACE_END; }
 
-
+<YYINITIAL> {CSS}                                         { yybegin(CSS_DEFINITION); return UssTypes.CSS; }
 
 <YYINITIAL> {L_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.L_PARENTHESIS; }
 
@@ -144,7 +146,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 <YYINITIAL> {HBLOCK}                                     { yybegin(YYINITIAL); return UssTypes.HBLOCK; }
 <YYINITIAL> {UBLOCK}                                     { yybegin(MOVIECLIP_DEFINITION); return UssTypes.UBLOCK; }
 <YYINITIAL> {MOVIECLIP}                                     { yybegin(MOVIECLIP_DEFINITION); return UssTypes.MOVIECLIP; }
-<YYINITIAL> {CSS}                                         { yybegin(YYINITIAL); return UssTypes.CSS; }
+
 //looks like style
 <YYINITIAL> {PARAMS}                                         { yybegin(STYLE_DEFINITION); return UssTypes.PARAMS; }
 
@@ -168,6 +170,15 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
     {ELEMENT_NAME}                                    { return UssTypes.ELEMENT_NAME; }
     {EMPTY_TOKEN}                                     { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
+}
+
+
+<CSS_DEFINITION> {
+    {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
+    {CLASS_NAME}                                    { return UssTypes.CLASS_NAME; }
+    {EMPTY_TOKEN}                                     { return UssTypes.EMPTY_TOKEN; }
+    {L_PARENTHESIS}                                    { yybegin(CSS_PARAMS); return UssTypes.L_PARENTHESIS; }
+    {R_PARENTHESIS}                                  { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
 
@@ -242,6 +253,26 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
       {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
 
      {R_PARENTHESIS}                                      { yybegin(STYLE_DEFINITION); return UssTypes.R_PARENTHESIS; }
+}
+
+// COPYPASTA BECAUSE NO WAY TO SEND STATE WHERE TO RETURN
+<CSS_PARAMS>{
+    // todo list of correct style params instead of ELEMENT_NAME
+
+     {SCREEN_SCALE}                                             { return UssTypes.SCREEN_SCALE; }
+     {WORD_INSIDE_QUOTE}                                       { return UssTypes.WORD_INSIDE_QUOTE; }
+     {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
+     {PERCENTAGE_NUMBER}                                        { return UssTypes.PERCENTAGE_NUMBER; }
+     {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
+     {STYLE_PIXEL_PARAM_WITH_OR}                                 { return UssTypes.STYLE_PIXEL_PARAM; }
+      {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
+      //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
+      // all styles available
+      {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
+      {CLASS_NAME}                                                { return UssTypes.CLASS_NAME; }
+      {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
+
+     {R_PARENTHESIS}                                      { yybegin(CSS_DEFINITION); return UssTypes.R_PARENTHESIS; }
 }
 
 .                                                           { return TokenType.BAD_CHARACTER; }
