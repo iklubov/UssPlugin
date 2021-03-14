@@ -31,19 +31,24 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
-STRANGE_EXPRESSION = \[\w+\]
+STRANGE_EXPRESSION = (\[\w+\])
 CONTROLLER_PATH = \w+(\.\w+)*
+BACKGROUND_STYLE_PARAM = \w+\:\w+
 SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
-PERCENTAGE_NUMBER = \-?\d+\%"f"?
+// todo 100%px is real, 100%% as well
+PERCENTAGE_NUMBER = \-?\d+\%{1,2}("f"|"px")?
 // and negative))
-FRACTIONAL_NUMBER = \-?\d+(\.\d+)?
-STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"
-STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) ("px")?
+
+FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw")?
+STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"
+// todo another strange element at the end
+STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) ("px"|"sw")?("|0")?
+
 
 // todo - paths are not the only one
-WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}) {DOUBLE_QUOTE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}) {DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
 
 
@@ -84,7 +89,7 @@ NO_PARAMS_BINDING = "stageSize"
 //TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
 BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%")+
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
-REPLACE_INSIDE_PARAMS = ({WORD}|{VIRGULE}|{DOUBLE_QUOTE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"="|"["|"]")+
+REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"="|"["|"]"|")"|"(")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
 
 //WHITE_SPACE=[\ \n\t\f]
 //COMMENT=("//")[^\r\n]*
@@ -156,6 +161,7 @@ REPLACE_INSIDE_PARAMS = ({WORD}|{VIRGULE}|{DOUBLE_QUOTE}|{SEPARATOR}+|"."|"'"|"{
     {BINDING_PROP}                                           { return UssTypes.BINDING_PROP; }
     {BINDING_PROP_FUNCTION}                                  { return UssTypes.BINDING_PROP_FUNCTION; }
     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
+    {FRACTIONAL_NUMBER}                                        { return UssTypes.WORD; }
     {DOUBLE_QUOTE}                                           { yybegin(BINDING_PARAMS); return UssTypes.DOUBLE_QUOTE; }
     {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
@@ -186,7 +192,9 @@ REPLACE_INSIDE_PARAMS = ({WORD}|{VIRGULE}|{DOUBLE_QUOTE}|{SEPARATOR}+|"."|"'"|"{
 }
 
 <SPECIAL_IDENTIFIER_DEFINITION> {
+      {SEPARATOR}                                                    { return UssTypes.SEPARATOR; }
       {REPLACE_INSIDE_PARAMS}                                        { return UssTypes.REPLACE_INSIDE_PARAMS; }
+      {WORD}                                                        { return UssTypes.REPLACE_INSIDE_PARAMS; }
       {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
