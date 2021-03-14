@@ -38,10 +38,11 @@ SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"LM"|"LS"|"X
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+
 // todo 100%px is real, 100%% as well
-PERCENTAGE_NUMBER = \-?\d+\%{1,2}("f"|"px")?
+// todo strange 50x
+PERCENTAGE_NUMBER = \-?\d+\%{1,2}("f"|"px"|"x")?
 // and negative))
 
-FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw"|"sh")?
+FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw"|"sh"|"x")?
 STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"
 // todo another strange element at the end
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
@@ -92,7 +93,7 @@ MOVIECLIP_NAME = \w+(\.\w+)*
 NO_PARAMS_BINDING = "stageSize"
 
 //TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
-BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%")+
+BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№")+
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
 REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"="|"["|"]"|")"|"(")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
 
