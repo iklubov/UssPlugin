@@ -32,18 +32,19 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
 STRANGE_EXPRESSION = \[\w+\]
-SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"LM"|"SERVICE_UI_COLOR_YELLOW"){1}
+CONTROLLER_PATH = \w+(\.\w+)*
+SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
 PERCENTAGE_NUMBER = \-?\d+\%"f"?
 // and negative))
 FRACTIONAL_NUMBER = \-?\d+(\.\d+)?
-STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"
+STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) ("px")?
 
 // todo - paths are not the only one
-WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}) {DOUBLE_QUOTE}
-SCREEN_SCALE = \d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{VIRGULE}\d+\:{SCREEN_SIZE_TYPE}{EMPTY_TOKEN}{SCREEN_SCALE_TYPE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}) {DOUBLE_QUOTE}
+SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
 
 
 
