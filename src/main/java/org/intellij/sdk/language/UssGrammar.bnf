@@ -26,7 +26,7 @@ newline ::= CRLF
 
 separator_expr ::= SEPARATOR
 
-replace_definition_token ::= REPLACE_START SEPARATOR ELEMENT_NAME SEPARATOR* EMPTY_TOKEN SEPARATOR* {REPLACE_SIMPLE_CONTENT | ({binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|special_token|comment|separator_expr|newline}*)} {SEPARATOR|newline}* REPLACE_END
+replace_definition_token ::= REPLACE_START SEPARATOR ELEMENT_NAME SEPARATOR* EMPTY_TOKEN (SEPARATOR|newline)* {REPLACE_SIMPLE_CONTENT | ({binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|special_token|comment|separator_expr|newline}*)} {SEPARATOR|newline}* REPLACE_END
 
 css_definition_token ::= L_PARENTHESIS CSS SEPARATOR CLASS_NAME SEPARATOR* EMPTY_TOKEN  ({style_param|separator_expr|comment}+) R_PARENTHESIS
 
