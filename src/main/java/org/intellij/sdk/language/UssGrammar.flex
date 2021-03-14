@@ -17,6 +17,8 @@ import org.intellij.sdk.language.psi.UssTypes;
 %eof}
 
 // todo review
+CRLF=\r|\n|\r\n
+COMMENT_EXPR = [#][^\r\n]+
 L_PARENTHESIS="("
 R_PARENTHESIS=")"
 DOUBLE_QUOTE = "\""
@@ -29,11 +31,15 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 // SERVICE EXPRESSIONS
 //WORD_EXP = ([A-Fa-f]+)
 
+// inside style params
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
 STRANGE_EXPRESSION = (\[\w+\])
 CONTROLLER_PATH = \w+(\.\w+)*
 BACKGROUND_STYLE_PARAM = \w+\:\w+
+DROPSHADOW_FILTER = ((("0x")?\-?\d+(\.\d+)?) | \s+)+
+HTML_PART = (\w+|\s+|{CRLF}|"{"|"}"|":"|"#"|";"|".")+
+
 SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}{EMPTY_TOKEN}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+
@@ -43,20 +49,20 @@ PERCENTAGE_NUMBER = \-?\d+\%{1,2}("f"|"px"|"x")?
 // and negative))
 
 FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw"|"sh"|"x")?
-STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"
+STYLE_PARAM_LIST = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"|"bottom"
+STYLE_PARAM_SPECIAL = {STYLE_PARAM_LIST} (\|{STYLE_PARAM_LIST})*
 // todo another strange element at the end
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
 STYLE_PIXEL_PARAM_WITH_OR = {STYLE_PIXEL_PARAM} (\|{STYLE_PIXEL_PARAM})*
 
 
 // todo - paths are not the only one
-WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}) {DOUBLE_QUOTE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}) {DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
 
 
 
-CRLF=\r|\n|\r\n
-COMMENT_EXPR = [#][^\r\n]+
+
 
 // IDENTIFIERS
 BLOCK = "block"
@@ -73,7 +79,7 @@ REPLACE_END = "replace"\>
 REPLACE_SIMPLE_CONTENT = \'?(\w+|\d+)\'?
 
 // todo replace with bind name
-BINDING_PROPERTY = "name"|"text"
+BINDING_PROPERTY = "name"|"text"|"alpha"
 
 // different block types
 TEXT_FIELD = "tf"
@@ -81,19 +87,21 @@ HBLOCK = "hblock"
 MOVIECLIP = "mc"
 UBLOCK = "ublock"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"
+
 
 ELEMENT_NAME = \w+
+ELEMENT_PARAMS = \w+
 CLASS_NAME = "$"\w+
 BINDING_NAME = "controller"|"child"|"childParentScope"|"instance"|"event"|"dispatch"|"dispatchDelayReset"|"style"|"class"|"sync"|"repeat"|"repeatCache"|"repeatObject"|"dataRefDH"|"watchDH"|"entityDH"|"firstEntityDH"|"handleEventDH"|"fxInstance"|"mrMeeseeks"|"collectionDH"|"collectionDHById"|"collectionRepeatDH"|"collectionDesign"|"collectionFields"|"primaryEntityDH"|"clikList"|"draggableWindow"|"draggable"|"droppable"|"resize"|"appear"|"fade"|"transition"|"timestampTween"|"textCountdown"|"pluralText"|"tooltip"|"popup"|"popupNoCache"|"menu"|"blurLayer"|"blurMap"|"input"|"request"|"action"|"focus"|"sequence"|"feature"|"catch"|"catchProperty"|"var"|"watch"|"actionIsDisplay"|"scopeHoldRepeat"|"clickSplit"|"substitute"|"scopeTrace"|"changeDispatch"|"countdown"|"file"|"imeEnable"|"linearChart"|"eventSequence"|"contains"|"levelToFeature"|"timeFormat"|"serverTime"|"generator"|"generatorDH"|"clock"|"inoutAction"|"soundOn"|"vTileHack"|"blockSize"|"stageCoord"|"scrollController"|"scrollControllerCentered"|"catchDH"|"keyboard"|"debugWrite"|"debugRead"|"debugReadAll"|"debugSend"|"debugReceive"|"debugRewrite"|"debugTypeOf"|"debugScope"|"debugDataProvider"|"debugBlockInfo"|"debugScopeDraw"|"concat"|"colorTransform"|"clipboard"|"resource"|"slice"|"mc"|"objectUnderPoint"|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"dragCursor"|"makeScreenshot"|"directEvent"|"visible"
-BINDING_PROP = \w+
+BINDING_PROP = \w+{EMPTY_TOKEN}*
 BINDING_PROP_FUNCTION = \w+"!"
 MOVIECLIP_NAME = \w+(\.\w+)*
 
 NO_PARAMS_BINDING = "stageSize"
 
 //TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
-BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№")+
+BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#")+
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
 REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"="|"["|"]"|")"|"(")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
 
@@ -170,15 +178,17 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 <ELEMENT_DEFINITION> {
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
     {ELEMENT_NAME}                                    { return UssTypes.ELEMENT_NAME; }
-    {EMPTY_TOKEN}                                     { yybegin(YYINITIAL); return UssTypes.EMPTY_TOKEN; }
+    {L_PARENTHESIS}                                    {return UssTypes.L_PARENTHESIS; }
+      {ELEMENT_PARAMS}                                  { return UssTypes.ELEMENT_NAME; }
+     {R_PARENTHESIS}                                  { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
 
 <CSS_DEFINITION> {
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
     {CLASS_NAME}                                    { return UssTypes.CLASS_NAME; }
-    {EMPTY_TOKEN}                                     { return UssTypes.EMPTY_TOKEN; }
-    {L_PARENTHESIS}                                    { yybegin(CSS_PARAMS); return UssTypes.L_PARENTHESIS; }
+      {EMPTY_TOKEN}                                      { return UssTypes.EMPTY_TOKEN; }
+   {L_PARENTHESIS}                                    {yybegin(CSS_PARAMS);  return UssTypes.L_PARENTHESIS; }
     {R_PARENTHESIS}                                  { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
@@ -186,10 +196,12 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 <BINDING_DEFINITION> {
     {BINDING_NAME}                                           { return UssTypes.BINDING_NAME; }
     {NO_PARAMS_BINDING}                                      { return UssTypes.NO_PARAMS_BINDING; }
+
     {BINDING_PROP}                                           { return UssTypes.BINDING_PROP; }
     {BINDING_PROP_FUNCTION}                                  { return UssTypes.BINDING_PROP_FUNCTION; }
     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
     {FRACTIONAL_NUMBER}                                        { return UssTypes.WORD; }
+    {WORD}                                                   { return UssTypes.WORD; }
     {DOUBLE_QUOTE}                                           { yybegin(BINDING_PARAMS); return UssTypes.DOUBLE_QUOTE; }
     {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
