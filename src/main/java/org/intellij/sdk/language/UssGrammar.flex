@@ -34,17 +34,18 @@ FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
 STRANGE_EXPRESSION = (\[\w+\])
 CONTROLLER_PATH = \w+(\.\w+)*
 BACKGROUND_STYLE_PARAM = \w+\:\w+
-SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}
+SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}{EMPTY_TOKEN}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
 // todo 100%px is real, 100%% as well
 PERCENTAGE_NUMBER = \-?\d+\%{1,2}("f"|"px")?
 // and negative))
 
-FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw")?
+FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw"|"sh")?
 STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"
 // todo another strange element at the end
-STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) ("px"|"sw")?("|0")?
+STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
+STYLE_PIXEL_PARAM_WITH_OR = {STYLE_PIXEL_PARAM} (\|{STYLE_PIXEL_PARAM})*
 
 
 // todo - paths are not the only one
@@ -218,7 +219,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
      {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
      {PERCENTAGE_NUMBER}                                        { return UssTypes.PERCENTAGE_NUMBER; }
      {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
-     {STYLE_PIXEL_PARAM}                                       { return UssTypes.STYLE_PIXEL_PARAM; }
+     {STYLE_PIXEL_PARAM_WITH_OR}                                 { return UssTypes.STYLE_PIXEL_PARAM; }
       {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
       //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
       // all styles available
