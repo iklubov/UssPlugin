@@ -32,13 +32,13 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
 STRANGE_EXPRESSION = \[\w+\]
-SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"LM"){1}
+SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"LM"|"SERVICE_UI_COLOR_YELLOW"){1}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([0-9A-Z]+\_)*[0-9A-Z]+
 PERCENTAGE_NUMBER = \-?\d+\%"f"?
 // and negative))
 FRACTIONAL_NUMBER = \-?\d+(\.\d+)?
-STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"
+STYLE_PARAM_SPECIAL = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE}{EMPTY_TOKEN})) ("px")?
 
 // todo - paths are not the only one
@@ -61,7 +61,7 @@ STYLE = "style"
 PARAMS = "params"
 
 // todo replace with bind name
-BINDING_PROPERTY = "name"
+BINDING_PROPERTY = "name"|"text"
 
 // different block types
 TEXT_FIELD = "tf"
@@ -69,7 +69,7 @@ HBLOCK = "hblock"
 MOVIECLIP = "mc"
 UBLOCK = "ublock"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"
 
 ELEMENT_NAME = \w+
 CLASS_NAME = "$"\w+
@@ -81,7 +81,7 @@ MOVIECLIP_NAME = \w+(\.\w+)*
 NO_PARAMS_BINDING = "stageSize"
 
 //TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
-BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—")+
+BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%")+
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
 REPLACE_INSIDE_PARAMS = ({WORD}|{VIRGULE}|{DOUBLE_QUOTE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"=")+
 
