@@ -88,7 +88,7 @@ HBLOCK = "hblock"
 MOVIECLIP = "mc"
 UBLOCK = "ublock"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"
 
 
 ELEMENT_NAME = \w+
