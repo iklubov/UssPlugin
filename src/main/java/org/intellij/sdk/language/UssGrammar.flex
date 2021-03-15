@@ -58,9 +58,13 @@ STYLE_PIXEL_PARAM_WITH_OR = {STYLE_PIXEL_PARAM} (\|{STYLE_PIXEL_PARAM})*
 
 
 // todo - paths are not the only one
-WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}) {DOUBLE_QUOTE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}|{SCREEN_SCALE}) {DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
+//SCREEN_SCALE_NUMBER = \d+\:\d+{VIRGULE}\d+\:\d+{SCREEN_SCALE_TYPE}
 
+
+// todo inner binding stuff
+INNER_BINDING_PARAM_2 = \w+(\.\w+)*
 
 
 
@@ -70,6 +74,7 @@ BLOCK = "block"
 ELEMENT = "element"
 CSS = "css"
 BINDING = "bind"
+INNER_BINDING = "innerBind"
 IMPORT = "import"
 CLASS = "class"
 STYLE = "style"
@@ -117,6 +122,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 %state CSS_DEFINITION
 %state ELEMENT_DEFINITION
 %state BINDING_DEFINITION
+%state INNER_BINDING_DEFINITION
 %state STYLE_DEFINITION
 %state CLASS_DEFINITION
 %state REPLACE_USAGE
@@ -148,6 +154,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 <YYINITIAL> {ELEMENT}                                       { yybegin(ELEMENT_DEFINITION); return UssTypes.ELEMENT; }
 // TOP LEVEL COMMON USE
 <YYINITIAL> {BINDING}                                       { yybegin(BINDING_DEFINITION); return UssTypes.BINDING; }
+<YYINITIAL> {INNER_BINDING}                                  { yybegin(INNER_BINDING_DEFINITION); return UssTypes.INNER_BINDING; }
 <YYINITIAL> {BINDING_PROPERTY}                              { yybegin(BINDING_DEFINITION); return UssTypes.BINDING; }
 <YYINITIAL> {STYLE}                                          { yybegin(STYLE_DEFINITION); return UssTypes.STYLE; }
 <YYINITIAL> {CLASS}                                         { yybegin(CLASS_DEFINITION); return UssTypes.CLASS; }
@@ -188,6 +195,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 
 
 <CSS_DEFINITION> {
+    {COMMENT_EXPR}                                    { return UssTypes.COMMENT_EXPR; }
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
     {CLASS_NAME}                                    { return UssTypes.CLASS_NAME; }
       {EMPTY_TOKEN}                                      { return UssTypes.EMPTY_TOKEN; }
@@ -195,6 +203,13 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
     {R_PARENTHESIS}                                  { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
+
+<INNER_BINDING_DEFINITION> {
+     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
+    {INNER_BINDING_PARAM_2}                                           { return UssTypes.INNER_BINDING_PARAM_2; }
+    {REPLACE_INSIDE_PARAMS}                                           { return UssTypes.REPLACE_INSIDE_PARAMS; }
+    {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
+}
 
 <BINDING_DEFINITION> {
     {BINDING_NAME}                                           { return UssTypes.BINDING_NAME; }
