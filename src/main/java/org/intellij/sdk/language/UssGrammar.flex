@@ -34,7 +34,8 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 // inside style params
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
-STRANGE_EXPRESSION = (\[\w+\])
+//background9slice
+STRANGE_EXPRESSION = (\[\w+(\,\w+)*\])
 CONTROLLER_PATH = \w+(\.\w+)*
 BACKGROUND_STYLE_PARAM = \w+\:\w+
 DROPSHADOW_FILTER = ((("0x")?\-?\d+(\.\d+)?) | \s+)+
@@ -55,10 +56,13 @@ STYLE_PARAM_SPECIAL = {STYLE_PARAM_LIST} (\|{STYLE_PARAM_LIST})*
 // todo another strange element at the end
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
 STYLE_PIXEL_PARAM_WITH_OR = {STYLE_PIXEL_PARAM} (\|{STYLE_PIXEL_PARAM})*
+STYLE_PARAM_REPLACE = {REPLACE_EXPRESSION}{EMPTY_TOKEN}("px"|"sw")?
+//userData at css CRAZY SHIT
+USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*\w+(({SEPARATOR}|{CRLF})*\,({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR}|{CRLF})*\w+)*({SEPARATOR}|{CRLF})*\}
 
 
 // todo - paths are not the only one
-WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}|{SCREEN_SCALE}) {DOUBLE_QUOTE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}|{SCREEN_SCALE}|{USER_DATA}) {DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
 //SCREEN_SCALE_NUMBER = \d+\:\d+{VIRGULE}\d+\:\d+{SCREEN_SCALE_TYPE}
 
@@ -93,23 +97,23 @@ HBLOCK = "hblock"
 MOVIECLIP = "mc"
 UBLOCK = "ublock"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"
 
 
 ELEMENT_NAME = \w+
 ELEMENT_PARAMS = \w+
 CLASS_NAME = "$"\w+
-BINDING_NAME = "controller"|"child"|"childParentScope"|"instance"|"event"|"dispatch"|"dispatchDelayReset"|"style"|"class"|"sync"|"repeat"|"repeatCache"|"repeatObject"|"dataRefDH"|"watchDH"|"entityDH"|"firstEntityDH"|"handleEventDH"|"fxInstance"|"mrMeeseeks"|"collectionDH"|"collectionDHById"|"collectionRepeatDH"|"collectionDesign"|"collectionFields"|"primaryEntityDH"|"clikList"|"draggableWindow"|"draggable"|"droppable"|"resize"|"appear"|"fade"|"transition"|"timestampTween"|"textCountdown"|"pluralText"|"tooltip"|"popup"|"popupNoCache"|"menu"|"blurLayer"|"blurMap"|"input"|"request"|"action"|"focus"|"sequence"|"feature"|"catch"|"catchProperty"|"var"|"watch"|"actionIsDisplay"|"scopeHoldRepeat"|"clickSplit"|"substitute"|"scopeTrace"|"changeDispatch"|"countdown"|"file"|"imeEnable"|"linearChart"|"eventSequence"|"contains"|"levelToFeature"|"timeFormat"|"serverTime"|"generator"|"generatorDH"|"clock"|"inoutAction"|"soundOn"|"vTileHack"|"blockSize"|"stageCoord"|"scrollController"|"scrollControllerCentered"|"catchDH"|"keyboard"|"debugWrite"|"debugRead"|"debugReadAll"|"debugSend"|"debugReceive"|"debugRewrite"|"debugTypeOf"|"debugScope"|"debugDataProvider"|"debugBlockInfo"|"debugScopeDraw"|"concat"|"colorTransform"|"clipboard"|"resource"|"slice"|"mc"|"objectUnderPoint"|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"dragCursor"|"makeScreenshot"|"directEvent"|"visible"
+BINDING_NAME = "controller"|"child"|"childParentScope"|"instance"|"event"|"dispatch"|"dispatchDelayReset"|"style"|"class"|"sync"|"repeat"|"repeatCache"|"repeatObject"|"dataRefDH"|"watchDH"|"entityDH"|"firstEntityDH"|"handleEventDH"|"fxInstance"|"mrMeeseeks"|"collectionDH"|"collectionDHById"|"collectionRepeatDH"|"collectionDesign"|"collectionFields"|"primaryEntityDH"|"clikList"|"draggableWindow"|"draggable"|"droppable"|"resize"|"appear"|"fade"|"transition"|"timestampTween"|"textCountdown"|"pluralText"|"tooltip"|"popup"|"popupNoCache"|"menu"|"blurLayer"|"blurMap"|"request"|"action"|"focus"|"sequence"|"feature"|"catch"|"catchProperty"|"var"|"watch"|"actionIsDisplay"|"scopeHoldRepeat"|"substitute"|"scopeTrace"|"changeDispatch"|"countdown"|"file"|"imeEnable"|"linearChart"|"eventSequence"|"contains"|"levelToFeature"|"timeFormat"|"serverTime"|"generator"|"generatorDH"|"clock"|"inoutAction"|"soundOn"|"vTileHack"|"blockSize"|"stageCoord"|"scrollController"|"scrollControllerCentered"|"catchDH"|"keyboard"|"debugWrite"|"debugRead"|"debugReadAll"|"debugSend"|"debugReceive"|"debugRewrite"|"debugTypeOf"|"debugScope"|"debugDataProvider"|"debugBlockInfo"|"debugScopeDraw"|"concat"|"colorTransform"|"clipboard"|"resource"|"slice"|"mc"|"objectUnderPoint"|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"dragCursor"|"makeScreenshot"|"directEvent"|"visible"
 BINDING_PROP = \w+{EMPTY_TOKEN}*
 BINDING_PROP_FUNCTION = \w+"!"
 MOVIECLIP_NAME = \w+(\.\w+)*
 
-NO_PARAMS_BINDING = "stageSize"
+NO_PARAMS_BINDING = "stageSize"|"input"|"clickSplit"
 
 //TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
 BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#")+
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
-REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"="|"["|"]"|")"|"(")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
+REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"="|"["|"]"|")"|"("|">")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
 
 //WHITE_SPACE=[\ \n\t\f]
 //COMMENT=("//")[^\r\n]*
@@ -172,6 +176,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 // todo divide replace definition
 <YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_USAGE); return UssTypes.REPLACE_EXPRESSION; }
 <YYINITIAL> {REPLACE_SIMPLE_CONTENT}                         { yybegin(YYINITIAL); return UssTypes.REPLACE_SIMPLE_CONTENT; }
+<YYINITIAL> {SCREEN_SCALE}                                 { yybegin(YYINITIAL); return UssTypes.REPLACE_SIMPLE_CONTENT; }
 
 //<YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
 
@@ -182,6 +187,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
     {REPLACE_EXPRESSION}                               { return UssTypes.ELEMENT_NAME; }
     {L_PARENTHESIS}                                    { return UssTypes.L_PARENTHESIS; }
     {REPLACE_PARAMS}                                    { return UssTypes.REPLACE_PARAMS; }
+    {SCREEN_SCALE}                                    { return UssTypes.REPLACE_PARAMS; }
     {R_PARENTHESIS}                                    { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
@@ -278,6 +284,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
      {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
      {STYLE_PIXEL_PARAM_WITH_OR}                                 { return UssTypes.STYLE_PIXEL_PARAM; }
       {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
+      {STYLE_PARAM_REPLACE}                                      { return UssTypes.FRACTIONAL_NUMBER; }
       //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
       // all styles available
       {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
@@ -297,6 +304,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
      {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
      {STYLE_PIXEL_PARAM_WITH_OR}                                 { return UssTypes.STYLE_PIXEL_PARAM; }
       {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
+      {STYLE_PARAM_REPLACE}                                      { return UssTypes.FRACTIONAL_NUMBER; }
       //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
       // all styles available
       {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
