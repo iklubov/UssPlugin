@@ -26,6 +26,7 @@ COLON = ":"
 VIRGULE = ","
 SEPARATOR= \s+
 WORD = \w+
+SINGLE_QUOTE = \'
 EMPTY_TOKEN = ["("][\s]*[")"]
 
 // SERVICE EXPRESSIONS
@@ -35,7 +36,7 @@ EMPTY_TOKEN = ["("][\s]*[")"]
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
 FILE_PATH = "url:" (\.{2} \/ )+ (\w+ \/ )+ \w+ \. \w+
 //background9slice
-STRANGE_EXPRESSION = (\[\w+(\,\w+)*\])
+STRANGE_EXPRESSION = (\[\w+(\,{SEPARATOR}\w+)*\])
 CONTROLLER_PATH = \w+(\.\w+)*
 BACKGROUND_STYLE_PARAM = \w+\:\w+
 DROPSHADOW_FILTER = ((("0x")?\-?\d+(\.\d+)?) | \s+)+
@@ -68,7 +69,7 @@ SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}\d+\:{STYLE_PIXEL_PARAM}{SCREEN_
 
 
 // todo inner binding stuff
-INNER_BINDING_PARAM_2 = \w+(\.\w+)*
+INNER_BINDING_PARAM_2 = \w+(\.\w+)*\!?
 
 
 
@@ -97,7 +98,7 @@ HBLOCK = "hblock"
 MOVIECLIP = "mc"
 UBLOCK = "ublock"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"|"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"
 
 
 ELEMENT_NAME = \w+
@@ -227,6 +228,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
     {FRACTIONAL_NUMBER}                                        { return UssTypes.WORD; }
     {WORD}                                                   { return UssTypes.WORD; }
     {DOUBLE_QUOTE}                                           { yybegin(BINDING_PARAMS); return UssTypes.DOUBLE_QUOTE; }
+    {SINGLE_QUOTE}                                           { return UssTypes.WORD; }
     {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
