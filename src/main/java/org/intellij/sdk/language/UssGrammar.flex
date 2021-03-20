@@ -60,7 +60,7 @@ STYLE_PIXEL_PARAM_WITH_OR = {STYLE_PIXEL_PARAM} (\|{STYLE_PIXEL_PARAM})*
 STYLE_PARAM_REPLACE = {REPLACE_EXPRESSION}{EMPTY_TOKEN}("px"|"sw")?
 //userData at css CRAZY SHIT
 USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*\w+(({SEPARATOR}|{CRLF})*\,({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR}|{CRLF})*\w+)*({SEPARATOR}|{CRLF})*\}
-STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|{SEPARATOR}|{CRLF})+\}
+STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|\#|{SEPARATOR}|{CRLF})+\}
 
 
 // todo - paths are not the only one
