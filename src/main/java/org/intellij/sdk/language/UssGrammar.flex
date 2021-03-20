@@ -18,7 +18,7 @@ import org.intellij.sdk.language.psi.UssTypes;
 
 // todo review
 CRLF=\r|\n|\r\n
-COMMENT_EXPR = [#][^\r\n]+
+COMMENT_EXPR = \#[^\r\n]*
 L_PARENTHESIS="("
 R_PARENTHESIS=")"
 DOUBLE_QUOTE = "\""
@@ -98,7 +98,9 @@ HBLOCK = "hblock"
 MOVIECLIP = "mc"
 UBLOCK = "ublock"
 
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"|"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"
+|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"
+|"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"
 
 
 ELEMENT_NAME = \w+
