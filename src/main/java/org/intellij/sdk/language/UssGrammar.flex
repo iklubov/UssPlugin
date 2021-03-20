@@ -65,7 +65,7 @@ STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|\#|{SEPARATOR}|{CRLF})+
 
 // todo - paths are not the only one
 WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}|{SCREEN_SCALE}|{USER_DATA}|{STYLE_SHEET}) {DOUBLE_QUOTE}
-SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
+SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}{SEPARATOR}*\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
 //SCREEN_SCALE_NUMBER = \d+\:\d+{VIRGULE}\d+\:\d+{SCREEN_SCALE_TYPE}
 
 
@@ -102,6 +102,7 @@ UBLOCK = "ublock"
 SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"
 |"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"
 |"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"|"Underline"|"ModalWindowClanBattlesScheduleContent"|"ClanBattlesScheduleTable"
+|"ExtendedSystemLogWindowBG"|"OperationRewardsAdapter"
 
 
 ELEMENT_NAME = \w+
