@@ -18,7 +18,7 @@
 ussFile ::= item_*
 
 //private item_ ::= comment | newline | token
-private item_ ::= comment | newline | token | replace_definition_token | css_definition_token
+private item_ ::= comment | newline | token | replace_definition_token | css_definition_token | separator_expr
 
 comment ::= COMMENT_EXPR
 
