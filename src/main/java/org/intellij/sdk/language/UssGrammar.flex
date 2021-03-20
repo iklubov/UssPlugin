@@ -42,7 +42,7 @@ BACKGROUND_STYLE_PARAM = \w+\:\w+
 DROPSHADOW_FILTER = ((("0x")?\-?\d+(\.\d+)?) | \s+)+
 HTML_PART = (\w+|\s+|{CRLF}|"{"|"}"|":"|"#"|";"|".")+
 
-SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"XLL"|"XXLXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}{EMPTY_TOKEN}
+SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"XLL"|"XXXL"|"XXLXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}{EMPTY_TOKEN}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+ | "abs" //REPLACE_NAME
 REPLACE_PARAMS = (\,?{SEPARATOR}*\_\w+)+
