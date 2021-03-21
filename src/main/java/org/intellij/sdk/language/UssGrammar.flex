@@ -47,7 +47,9 @@ SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizo
 |"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"|"Underline"|"ModalWindowClanBattlesScheduleContent"|"ClanBattlesScheduleTable"
 |"ExtendedSystemLogWindowBG"|"OperationRewardsAdapter"|"ModernizationTextChoosedItemRenderer"|"ExcursionHintBlock"|"CarouselFilters"|"ProfilePlayerPercentEfficiency"|"PVEOperationItemSmallNoMargins"|"IconWarningSmall"
 |"SimpleLockPlug"|"MenuItemWithSelection"|"BlurMapCustomOutbound"|"ContextGuidingTipPointerAnimation"|"SimpleTooltipTemplate"|"SubTextTooltipTemplate"|"ModuleTreeHelpBlock"|"DivisionEntranceInfotip"|"NotificationsInfotip"
-|"MainTabSmall"|"MenuItemWithAction"
+|"MainTabSmall"|"MenuItemWithAction"|"TrainingRoomShipCarouselContainer"|"ModalWindowTrainingRoomsContent"|"FormationPlayerItem"|"TrainingRoomTextInputContent"|"CustomItemChoosedRenderer"|"CustomItemChooserItemRenderer"
+|"UIlistTeamStructureLeft"|"UIlistTeamStructureRight"|"BrowserWindowContent"|"BrowserRender"|"BrowserLoadFailed"|"BlurMapLow"|"ShipCarouselNoCompatibleShips"|"ShipCarouselPurchaseShip"|"ShipCarouselPurchaseShipSlot"
+|"ServiceUnfreezeButtons"|"TrainingRoomRestrictions"|"MenuItemWithRequest"
 
 ELEMENT_NAME = \w+
 ELEMENT_PARAMS = \w+
