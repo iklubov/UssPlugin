@@ -50,7 +50,8 @@ SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizo
 |"MainTabSmall"|"MenuItemWithAction"|"TrainingRoomShipCarouselContainer"|"ModalWindowTrainingRoomsContent"|"FormationPlayerItem"|"TrainingRoomTextInputContent"|"CustomItemChoosedRenderer"|"CustomItemChooserItemRenderer"
 |"UIlistTeamStructureLeft"|"UIlistTeamStructureRight"|"BrowserWindowContent"|"BrowserRender"|"BrowserLoadFailed"|"BlurMapLow"|"ShipCarouselNoCompatibleShips"|"ShipCarouselPurchaseShip"|"ShipCarouselPurchaseShipSlot"
 |"ServiceUnfreezeButtons"|"TrainingRoomRestrictions"|"MenuItemWithRequest"|"ContactsAndChannelsInfotip"|"ExpandedGroupTitle"|"NoItemsInGroup"|"FormationMainElement"|"DivisionStatusTransition"|"DockNaviButtons"
-|"MenuButton"|"GiftBoxRewardsHeader"|"GiftboxRewardsContent"
+|"MenuButton"|"GiftBoxRewardsHeader"|"GiftboxRewardsContent"|"ExteriorHeader"|"CommanderRankShipTraining"|"NotificationModuleHeader"|"PriceTag"|"BannerButton"|"ShipTypeCounter"|"ModalWindowCloseIcon"|"UIListTeamResultLeft"
+|"UIListTeamResultRight"
 
 ELEMENT_NAME = \w+
 ELEMENT_PARAMS = \w+
@@ -61,12 +62,12 @@ BINDING_NAME = "controller"|"child"|"childParentScope"|"instance"|"event"|"dispa
 |"feature"|"catch"|"catchProperty"|"var"|"watch"|"actionIsDisplay"|"scopeHoldRepeat"|"substitute"|"scopeTrace"|"changeDispatch"|"countdown"|"file"|"imeEnable"|"linearChart"|"eventSequence"|"contains"|"levelToFeature"
 |"timeFormat"|"serverTime"|"generator"|"generatorDH"|"clock"|"inoutAction"|"soundOn"|"blockSize"|"stageCoord"|"scrollController"|"scrollControllerCentered"|"catchDH"|"keyboard"|"debugWrite"|"debugRead"
 |"debugReadAll"|"debugSend"|"debugReceive"|"debugRewrite"|"debugTypeOf"|"debugScope"|"debugDataProvider"|"debugBlockInfo"|"debugScopeDraw"|"concat"|"colorTransform"|"clipboard"|"resource"|"slice"|"mc"|"objectUnderPoint"
-|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"dragCursor"|"makeScreenshot"|"directEvent"|"visible"
+|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"makeScreenshot"|"directEvent"|"visible"
 BINDING_PROP = \w+{EMPTY_TOKEN}*
 BINDING_PROP_FUNCTION = \w+"!"
 MOVIECLIP_NAME = \w+(\.\w+)*
 
-NO_PARAMS_BINDING = "stageSize"|"input"|"clickSplit"|"vTileHack"
+NO_PARAMS_BINDING = "stageSize"|"input"|"clickSplit"|"vTileHack"|"dragCursor"
 
 // todo review
 CRLF=\r|\n|\r\n
@@ -119,7 +120,7 @@ STYLE_PARAM_REPLACE = {REPLACE_EXPRESSION}{EMPTY_TOKEN}("px"|"sw")?
 USER_DATA_0 = \-?(\w+|\.|'right'|'left')+
 USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*{USER_DATA_0}(({SEPARATOR}|{CRLF})*\,({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR}|{CRLF})*{USER_DATA_0})*({SEPARATOR}|{CRLF})*\}
 STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|\#|{SEPARATOR}|{CRLF})+\}
-VAR_NAME = "_px"
+VAR_NAME = "_px"|"_label"
 
 RESTRICTIONS_IN_PARAMS = "^<>"
 
