@@ -45,7 +45,7 @@ SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizo
 |"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"
 |"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"|"Underline"|"ModalWindowClanBattlesScheduleContent"|"ClanBattlesScheduleTable"
 |"ExtendedSystemLogWindowBG"|"OperationRewardsAdapter"|"ModernizationTextChoosedItemRenderer"|"ExcursionHintBlock"|"CarouselFilters"|"ProfilePlayerPercentEfficiency"|"PVEOperationItemSmallNoMargins"|"IconWarningSmall"
-|"SimpleLockPlug"
+|"SimpleLockPlug"|"MenuItemWithSelection"
 
 
 ELEMENT_NAME = \w+
