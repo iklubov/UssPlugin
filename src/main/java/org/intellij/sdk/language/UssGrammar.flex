@@ -103,7 +103,9 @@ PERCENTAGE_NUMBER = \-?\d+(\.\d+)?\%{1,2}("f"|"px"|"x")?
 // and negative))
 
 FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw"|"sh"|"x")?
-STYLE_PARAM_LIST = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"|"bottom"|"drop_down_list_item"|"screenshot"|"auto"
+// todo _width and drop_down_list_item
+STYLE_PARAM_LIST = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"|"bottom"|"drop_down_list_item"|"screenshot"
+|"auto"|"_width"
 STYLE_PARAM_SPECIAL = {STYLE_PARAM_LIST} (\|{STYLE_PARAM_LIST})*
 // todo another strange element at the end
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
