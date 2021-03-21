@@ -45,6 +45,7 @@ SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizo
 |"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"
 |"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"|"Underline"|"ModalWindowClanBattlesScheduleContent"|"ClanBattlesScheduleTable"
 |"ExtendedSystemLogWindowBG"|"OperationRewardsAdapter"|"ModernizationTextChoosedItemRenderer"|"ExcursionHintBlock"|"CarouselFilters"|"ProfilePlayerPercentEfficiency"|"PVEOperationItemSmallNoMargins"|"IconWarningSmall"
+|"SimpleLockPlug"
 
 
 ELEMENT_NAME = \w+
@@ -111,8 +112,11 @@ USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*\w+(({SEPARATOR}|{CRLF})*\
 STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|\#|{SEPARATOR}|{CRLF})+\}
 
 
+
 // todo - paths are not the only one
 WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}|{SCREEN_SCALE}|{USER_DATA}|{STYLE_SHEET}) {DOUBLE_QUOTE}
+//(dropShadowFilter "")
+EMPTY_QUOTES = {DOUBLE_QUOTE}{DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}{SEPARATOR}*\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
 //SCREEN_SCALE_NUMBER = \d+\:\d+{VIRGULE}\d+\:\d+{SCREEN_SCALE_TYPE}
 
@@ -296,6 +300,8 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
 
      {SCREEN_SCALE}                                             { return UssTypes.SCREEN_SCALE; }
      {WORD_INSIDE_QUOTE}                                       { return UssTypes.WORD_INSIDE_QUOTE; }
+     // TODO ERROR
+     {EMPTY_QUOTES}                                           { return UssTypes.EMPTY_QUOTES; }
      {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
      {PERCENTAGE_NUMBER}                                        { return UssTypes.PERCENTAGE_NUMBER; }
      {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
@@ -316,6 +322,8 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
 
      {SCREEN_SCALE}                                             { return UssTypes.SCREEN_SCALE; }
      {WORD_INSIDE_QUOTE}                                       { return UssTypes.WORD_INSIDE_QUOTE; }
+     // TODO ERROR
+     {EMPTY_QUOTES}                                              { return UssTypes.EMPTY_QUOTES; }
      {HEX_NUMBER}                                               { return UssTypes.HEX_NUMBER; }
      {PERCENTAGE_NUMBER}                                        { return UssTypes.PERCENTAGE_NUMBER; }
      {STYLE_PARAM_SPECIAL}                                       { return UssTypes.STYLE_PARAM_SPECIAL; }
