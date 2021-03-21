@@ -46,7 +46,7 @@ SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizo
 |"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"
 |"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"|"Underline"|"ModalWindowClanBattlesScheduleContent"|"ClanBattlesScheduleTable"
 |"ExtendedSystemLogWindowBG"|"OperationRewardsAdapter"|"ModernizationTextChoosedItemRenderer"|"ExcursionHintBlock"|"CarouselFilters"|"ProfilePlayerPercentEfficiency"|"PVEOperationItemSmallNoMargins"|"IconWarningSmall"
-|"SimpleLockPlug"|"MenuItemWithSelection"
+|"SimpleLockPlug"|"MenuItemWithSelection"|"BlurMapCustomOutbound"|"ContextGuidingTipPointerAnimation"|"SimpleTooltipTemplate"|"SubTextTooltipTemplate"|"ModuleTreeHelpBlock"|"DivisionEntranceInfotip"|"NotificationsInfotip"
 
 
 ELEMENT_NAME = \w+
@@ -113,7 +113,8 @@ STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
 STYLE_PIXEL_PARAM_WITH_OR = {STYLE_PIXEL_PARAM} (\|{STYLE_PIXEL_PARAM})*
 STYLE_PARAM_REPLACE = {REPLACE_EXPRESSION}{EMPTY_TOKEN}("px"|"sw")?
 //userData at css CRAZY SHIT
-USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*\w+(({SEPARATOR}|{CRLF})*\,({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR}|{CRLF})*\w+)*({SEPARATOR}|{CRLF})*\}
+USER_DATA_0 = \-?(\w+|\.|'right'|'left')+
+USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*{USER_DATA_0}(({SEPARATOR}|{CRLF})*\,({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR}|{CRLF})*{USER_DATA_0})*({SEPARATOR}|{CRLF})*\}
 STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|\#|{SEPARATOR}|{CRLF})+\}
 VAR_NAME = "_px"
 
@@ -136,7 +137,9 @@ INNER_BINDING_PARAM_2 = \w+(\.\w+)*\!?
 BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–"|"•")+
 
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
-REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"?"|"="|"["|"]"|")"|"("|">"|"+"|"-"|",")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
+REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"?"|"="|"["|"]"|")"|"("|">"|"<"|"+"|"-"|",")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
+// for inner bind
+REPLACE_INSIDE_PARAMS_INNER_BIND =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|{CRLF}|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"?"|"="|"["|"]"|")"|"("|">"|"<"|"+"|"-"|",")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
 
 TEMPLATE_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–"|"!")+
 // todo shit
@@ -235,7 +238,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
 <INNER_BINDING_DEFINITION> {
      {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
     {INNER_BINDING_PARAM_2}                                           { return UssTypes.INNER_BINDING_PARAM_2; }
-    {REPLACE_INSIDE_PARAMS}                                           { return UssTypes.REPLACE_INSIDE_PARAMS; }
+    {REPLACE_INSIDE_PARAMS_INNER_BIND}                                           { return UssTypes.REPLACE_INSIDE_PARAMS; }
     {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
