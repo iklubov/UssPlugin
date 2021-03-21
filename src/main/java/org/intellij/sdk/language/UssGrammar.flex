@@ -50,7 +50,7 @@ SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizo
 |"MainTabSmall"|"MenuItemWithAction"|"TrainingRoomShipCarouselContainer"|"ModalWindowTrainingRoomsContent"|"FormationPlayerItem"|"TrainingRoomTextInputContent"|"CustomItemChoosedRenderer"|"CustomItemChooserItemRenderer"
 |"UIlistTeamStructureLeft"|"UIlistTeamStructureRight"|"BrowserWindowContent"|"BrowserRender"|"BrowserLoadFailed"|"BlurMapLow"|"ShipCarouselNoCompatibleShips"|"ShipCarouselPurchaseShip"|"ShipCarouselPurchaseShipSlot"
 |"ServiceUnfreezeButtons"|"TrainingRoomRestrictions"|"MenuItemWithRequest"|"ContactsAndChannelsInfotip"|"ExpandedGroupTitle"|"NoItemsInGroup"|"FormationMainElement"|"DivisionStatusTransition"|"DockNaviButtons"
-|"MenuButton"
+|"MenuButton"|"GiftBoxRewardsHeader"|"GiftboxRewardsContent"
 
 ELEMENT_NAME = \w+
 ELEMENT_PARAMS = \w+
@@ -139,7 +139,7 @@ INNER_BINDING_PARAM_2 = \w+(\.\w+)*\!?
 
 //TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
 //todo "-", "—" and "–" are different!
-BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–"|"•")+
+BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–"|"•"|"…")+
 
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
 REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"?"|"="|"["|"]"|")"|"("|">"|"<"|"+"|"-"|",")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
@@ -292,7 +292,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
 <SPECIAL_IDENTIFIER_DEFINITION> {
       {SEPARATOR}                                                    { return UssTypes.SEPARATOR; }
       {REPLACE_INSIDE_PARAMS}                                        { return UssTypes.REPLACE_INSIDE_PARAMS; }
-      {WORD}                                                        { return UssTypes.REPLACE_INSIDE_PARAMS; }
+      ({WORD}|{POINT})+                                                       { return UssTypes.REPLACE_INSIDE_PARAMS; }
       {R_PARENTHESIS}                                      { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
 
