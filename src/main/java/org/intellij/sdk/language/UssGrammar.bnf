@@ -58,7 +58,7 @@ replace_token ::= REPLACE_EXPRESSION L_PARENTHESIS (REPLACE_INSIDE_PARAMS*) R_PA
 //TODO remove movieclip from here
 block_token ::=  L_PARENTHESIS {BLOCK | TEXT_FIELD | HBLOCK | MOVIECLIP | UBLOCK} SEPARATOR MOVIECLIP_NAME* SEPARATOR* ({block_token|binding_token|inner_binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|comment|replace_token|separator_expr|special_token|newline}*) R_PARENTHESIS
 
-token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR* L_PARENTHESIS ELEMENT_NAME* R_PARENTHESIS ({block_token|binding_token|inner_binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|special_token|comment|replace_token|separator_expr|newline}*) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
+token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR* L_PARENTHESIS ({ELEMENT_NAME|SEPARATOR}*) R_PARENTHESIS ({block_token|binding_token|inner_binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|special_token|comment|replace_token|separator_expr|newline}*) R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
 
 // todo needed for ussLexer support

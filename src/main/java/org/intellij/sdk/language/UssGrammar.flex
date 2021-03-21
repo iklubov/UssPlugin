@@ -16,6 +16,53 @@ import org.intellij.sdk.language.psi.UssTypes;
 %eof{  return;
 %eof}
 
+// IDENTIFIERS
+BLOCK = "block"
+ELEMENT = "element"
+CSS = "css"
+BINDING = "bind"
+INNER_BINDING = "innerBind"
+IMPORT = "import"
+CLASS = "class"
+STYLE = "style"
+PARAMS = "params"
+
+// todo think about it
+REPLACE_START = \<"replace"
+REPLACE_END = "replace"\>
+REPLACE_SIMPLE_CONTENT = \'?(\w+|\d+)\'?
+
+// todo replace with bind name
+BINDING_PROPERTY = "name"|"text"|"alpha"
+
+// different block types
+TEXT_FIELD = "tf"
+HBLOCK = "hblock"
+MOVIECLIP = "mc"
+UBLOCK = "ublock"
+
+SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"
+|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"
+|"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"|"Underline"|"ModalWindowClanBattlesScheduleContent"|"ClanBattlesScheduleTable"
+|"ExtendedSystemLogWindowBG"|"OperationRewardsAdapter"|"ModernizationTextChoosedItemRenderer"
+
+
+ELEMENT_NAME = \w+
+ELEMENT_PARAMS = \w+
+CLASS_NAME = "$"\w+
+BINDING_NAME = "controller"|"child"|"childParentScope"|"instance"|"event"|"dispatch"|"dispatchDelayReset"|"style"|"class"|"sync"|"repeat"|"repeatCache"|"repeatObject"|"dataRefDH"|"watchDH"|"entityDH"
+|"firstEntityDH"|"handleEventDH"|"fxInstance"|"mrMeeseeks"|"collectionDH"|"collectionDHById"|"collectionRepeatDH"|"collectionDesign"|"collectionFields"|"primaryEntityDH"|"clikList"|"draggableWindow"
+|"draggable"|"droppable"|"resize"|"appear"|"fade"|"transition"|"timestampTween"|"textCountdown"|"pluralText"|"tooltip"|"popup"|"popupNoCache"|"menu"|"blurLayer"|"blurMap"|"request"|"action"|"focus"|"sequence"
+|"feature"|"catch"|"catchProperty"|"var"|"watch"|"actionIsDisplay"|"scopeHoldRepeat"|"substitute"|"scopeTrace"|"changeDispatch"|"countdown"|"file"|"imeEnable"|"linearChart"|"eventSequence"|"contains"|"levelToFeature"
+|"timeFormat"|"serverTime"|"generator"|"generatorDH"|"clock"|"inoutAction"|"soundOn"|"vTileHack"|"blockSize"|"stageCoord"|"scrollController"|"scrollControllerCentered"|"catchDH"|"keyboard"|"debugWrite"|"debugRead"
+|"debugReadAll"|"debugSend"|"debugReceive"|"debugRewrite"|"debugTypeOf"|"debugScope"|"debugDataProvider"|"debugBlockInfo"|"debugScopeDraw"|"concat"|"colorTransform"|"clipboard"|"resource"|"slice"|"mc"|"objectUnderPoint"
+|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"dragCursor"|"makeScreenshot"|"directEvent"|"visible"
+BINDING_PROP = \w+{EMPTY_TOKEN}*
+BINDING_PROP_FUNCTION = \w+"!"
+MOVIECLIP_NAME = \w+(\.\w+)*
+
+NO_PARAMS_BINDING = "stageSize"|"input"|"clickSplit"
+
 // todo review
 CRLF=\r|\n|\r\n
 COMMENT_EXPR = \#[^\r\n]*
@@ -24,13 +71,13 @@ R_PARENTHESIS=")"
 DOUBLE_QUOTE = "\""
 COLON = ":"
 VIRGULE = ","
+POINT = "."
 SEPARATOR= \s+
 WORD = \w+
 SINGLE_QUOTE = \'
 EMPTY_TOKEN = ["("][\s]*[")"]
 
 // SERVICE EXPRESSIONS
-//WORD_EXP = ([A-Fa-f]+)
 
 // inside style params
 HEX_NUMBER = "0x" [0-9A-Fa-f]+
@@ -73,64 +120,14 @@ SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}{SEPARATOR}*\d+\:{STYLE_PIXEL_PA
 INNER_BINDING_PARAM_2 = \w+(\.\w+)*\!?
 
 
-
-
-// IDENTIFIERS
-BLOCK = "block"
-ELEMENT = "element"
-CSS = "css"
-BINDING = "bind"
-INNER_BINDING = "innerBind"
-IMPORT = "import"
-CLASS = "class"
-STYLE = "style"
-PARAMS = "params"
-// todo think about it
-REPLACE_START = \<"replace"
-REPLACE_END = "replace"\>
-REPLACE_SIMPLE_CONTENT = \'?(\w+|\d+)\'?
-
-// todo replace with bind name
-BINDING_PROPERTY = "name"|"text"|"alpha"
-
-// different block types
-TEXT_FIELD = "tf"
-HBLOCK = "hblock"
-MOVIECLIP = "mc"
-UBLOCK = "ublock"
-
-SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizontalDivider"|"BlurMap"|"ShipIconLevelName"|"AccountLevellingStepInfoLayout"|"DefaultButtonModal"|"BlurMapCustom"|"TutorialHintHeader"|"TutorialHintDivider"
-|"HorizontalDividerTwoPx"|"HeaderShipMarker"|"ShipParamsArray"|"PlaneParamsArray"|"DottedLine"|"DropShadow"|"TaskItemStatus"|"InfotipBg"|"VerticalDivider"|"MenuBg"|"MenuItem"|"ResizeFrame"|"FourColoredIcon"|"OneColoredIcon"|"TwoColoredIcon"
-|"TriColoredIcon"|"InfotipPanelBg"|"InfotipPins"|"LinkedEULA"|"FullTextEULA"|"DevTraces"|"BlurMapCustomPxOutbound"|"ModalWindowContainer"|"Underline"|"ModalWindowClanBattlesScheduleContent"|"ClanBattlesScheduleTable"
-|"ExtendedSystemLogWindowBG"|"OperationRewardsAdapter"|"ModernizationTextChoosedItemRenderer"
-
-
-ELEMENT_NAME = \w+
-ELEMENT_PARAMS = \w+
-CLASS_NAME = "$"\w+
-BINDING_NAME = "controller"|"child"|"childParentScope"|"instance"|"event"|"dispatch"|"dispatchDelayReset"|"style"|"class"|"sync"|"repeat"|"repeatCache"|"repeatObject"|"dataRefDH"|"watchDH"|"entityDH"
-|"firstEntityDH"|"handleEventDH"|"fxInstance"|"mrMeeseeks"|"collectionDH"|"collectionDHById"|"collectionRepeatDH"|"collectionDesign"|"collectionFields"|"primaryEntityDH"|"clikList"|"draggableWindow"
-|"draggable"|"droppable"|"resize"|"appear"|"fade"|"transition"|"timestampTween"|"textCountdown"|"pluralText"|"tooltip"|"popup"|"popupNoCache"|"menu"|"blurLayer"|"blurMap"|"request"|"action"|"focus"|"sequence"
-|"feature"|"catch"|"catchProperty"|"var"|"watch"|"actionIsDisplay"|"scopeHoldRepeat"|"substitute"|"scopeTrace"|"changeDispatch"|"countdown"|"file"|"imeEnable"|"linearChart"|"eventSequence"|"contains"|"levelToFeature"
-|"timeFormat"|"serverTime"|"generator"|"generatorDH"|"clock"|"inoutAction"|"soundOn"|"vTileHack"|"blockSize"|"stageCoord"|"scrollController"|"scrollControllerCentered"|"catchDH"|"keyboard"|"debugWrite"|"debugRead"
-|"debugReadAll"|"debugSend"|"debugReceive"|"debugRewrite"|"debugTypeOf"|"debugScope"|"debugDataProvider"|"debugBlockInfo"|"debugScopeDraw"|"concat"|"colorTransform"|"clipboard"|"resource"|"slice"|"mc"|"objectUnderPoint"
-|"restrictFeedback"|"perFrameUpdate"|"indexOf"|"atlasText"|"timeline"|"battleHint"|"lag"|"dragCursor"|"makeScreenshot"|"directEvent"|"visible"
-BINDING_PROP = \w+{EMPTY_TOKEN}*
-BINDING_PROP_FUNCTION = \w+"!"
-MOVIECLIP_NAME = \w+(\.\w+)*
-
-NO_PARAMS_BINDING = "stageSize"|"input"|"clickSplit"
-
 //TODO MAKE SYNTAX SUPPORT FOR THESE PARAMS
-BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–")+
+BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–"|"•")+
+
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
 REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"?"|"="|"["|"]"|")"|"("|">"|"+")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
 
-//WHITE_SPACE=[\ \n\t\f]
-//COMMENT=("//")[^\r\n]*
-//FIRST_VALUE_CHARACTER=[(]//[^ \n\f\\] | "\\"{CRLF} | "\\".
-//VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
-//END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
+TEMPLATE_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–")+
+TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{DOUBLE_QUOTE})+  ")"
 
 
 
@@ -237,6 +234,9 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
     {SEPARATOR}+                                              { return UssTypes.SEPARATOR; }
     {FRACTIONAL_NUMBER}                                        { return UssTypes.WORD; }
     {WORD}                                                   { return UssTypes.WORD; }
+    //(bind text licenseData.licenseText)
+    {POINT}                                                  { return UssTypes.WORD; }
+    {TEMPLATE_PARAMS}                                        { return UssTypes.WORD; }
     {DOUBLE_QUOTE}                                           { yybegin(BINDING_PARAMS); return UssTypes.DOUBLE_QUOTE; }
     {SINGLE_QUOTE}                                           { return UssTypes.WORD; }
     {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
@@ -279,6 +279,7 @@ REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|
 
 // TODO ; add here
 // TODO params for bindings from code(docs)
+// TODO params for templates
 <BINDING_PARAMS>{
     {BINDING_INSIDE_PARAMS}                                              { return UssTypes.WORD; }
     {SEPARATOR}+                                                         { return UssTypes.SEPARATOR; }
