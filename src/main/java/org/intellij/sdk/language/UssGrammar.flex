@@ -27,10 +27,11 @@ CLASS = "class"
 STYLE = "style"
 PARAMS = "params"
 
-// todo think about it
+// todo replaces must be rewritten
+// TODO MOUSE_PLACED_TOOLTIP_BEHAVIOUR
 REPLACE_START = \<"replace"
 REPLACE_END = "replace"\>
-REPLACE_SIMPLE_CONTENT = \'?(\w+|\d+)\'?
+REPLACE_SIMPLE_CONTENT = \'?\-?(\w+|\d+|{FILE_PATH}|{FRACTIONAL_NUMBER}|{SCREEN_SCALE})\'?
 
 // todo replace with bind name
 BINDING_PROPERTY = "name"|"text"|"alpha"
@@ -94,6 +95,7 @@ HTML_PART = (\w+|\s+|{CRLF}|"{"|"}"|":"|"#"|";"|".")+
 SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"XLL"|"XXXL"|"XXLXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}{EMPTY_TOKEN}
 SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+ | "abs" | "trace" | "rtrace" //REPLACE_NAME
+REPLACE_EXPRESSION_NAME = ([A-Z]+\_)*[A-Z]+(\_\d)? | "abs" | "trace" | "rtrace" //REPLACE_NAME
 REPLACE_PARAMS = (\,?{SEPARATOR}*\_\w+)+
 // todo 100%px is real, 100%% as well
 // todo strange 50x
@@ -200,7 +202,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
 
 <REPLACE_DEFINITION> {
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
-    {REPLACE_EXPRESSION}                               { return UssTypes.ELEMENT_NAME; }
+    {REPLACE_EXPRESSION_NAME}                               { return UssTypes.ELEMENT_NAME; }
     {L_PARENTHESIS}                                    { return UssTypes.L_PARENTHESIS; }
     {REPLACE_PARAMS}                                    { return UssTypes.REPLACE_PARAMS; }
     {SCREEN_SCALE}                                    { return UssTypes.REPLACE_PARAMS; }
