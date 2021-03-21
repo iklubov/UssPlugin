@@ -49,7 +49,8 @@ SPECIAL_IDENTIFIER = "DeclareBlurLayer"|"HorizontalDivider"|"TooltipSystemHorizo
 |"SimpleLockPlug"|"MenuItemWithSelection"|"BlurMapCustomOutbound"|"ContextGuidingTipPointerAnimation"|"SimpleTooltipTemplate"|"SubTextTooltipTemplate"|"ModuleTreeHelpBlock"|"DivisionEntranceInfotip"|"NotificationsInfotip"
 |"MainTabSmall"|"MenuItemWithAction"|"TrainingRoomShipCarouselContainer"|"ModalWindowTrainingRoomsContent"|"FormationPlayerItem"|"TrainingRoomTextInputContent"|"CustomItemChoosedRenderer"|"CustomItemChooserItemRenderer"
 |"UIlistTeamStructureLeft"|"UIlistTeamStructureRight"|"BrowserWindowContent"|"BrowserRender"|"BrowserLoadFailed"|"BlurMapLow"|"ShipCarouselNoCompatibleShips"|"ShipCarouselPurchaseShip"|"ShipCarouselPurchaseShipSlot"
-|"ServiceUnfreezeButtons"|"TrainingRoomRestrictions"|"MenuItemWithRequest"
+|"ServiceUnfreezeButtons"|"TrainingRoomRestrictions"|"MenuItemWithRequest"|"ContactsAndChannelsInfotip"|"ExpandedGroupTitle"|"NoItemsInGroup"|"FormationMainElement"|"DivisionStatusTransition"|"DockNaviButtons"
+|"MenuButton"
 
 ELEMENT_NAME = \w+
 ELEMENT_PARAMS = \w+
