@@ -93,7 +93,7 @@ HTML_PART = (\w+|\s+|{CRLF}|"{"|"}"|":"|"#"|";"|".")+
 
 SCREEN_SIZE_TYPE = \-?("SXS"|"MS"|"M"|"XXS"|"XS"|"S"|"L"|"XL"|"XXL"|"XLL"|"XXXL"|"XXLXL"|"LM"|"LS"|"XLM"|"SERVICE_UI_COLOR_YELLOW"|"TA"|"TC"){1}{EMPTY_TOKEN}
 SCREEN_SCALE_TYPE = "aw"|"ah"
-REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+ | "abs" //REPLACE_NAME
+REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+ | "abs" | "trace" | "rtrace" //REPLACE_NAME
 REPLACE_PARAMS = (\,?{SEPARATOR}*\_\w+)+
 // todo 100%px is real, 100%% as well
 // todo strange 50x
