@@ -29,7 +29,7 @@ separator_expr ::= SEPARATOR
 replace_definition_token ::= REPLACE_START SEPARATOR ELEMENT_NAME SEPARATOR* L_PARENTHESIS {SEPARATOR|REPLACE_PARAMS*} R_PARENTHESIS (SEPARATOR|newline)* {REPLACE_SIMPLE_CONTENT | ({block_token|binding_token|inner_binding_token|no_params_binding_token|property_binding_token|style_token|params_token|class_token|special_token|comment|separator_expr|newline}*)} {SEPARATOR|newline}* REPLACE_END
 
 // EMPTY TOKEN NOT ALWAYS NEEDED
-css_definition_token ::= L_PARENTHESIS CSS SEPARATOR CLASS_NAME SEPARATOR*  EMPTY_TOKEN* SEPARATOR* ({style_param|separator_expr|comment}+) R_PARENTHESIS
+css_definition_token ::= L_PARENTHESIS CSS SEPARATOR CLASS_NAME SEPARATOR*  EMPTY_TOKEN* SEPARATOR* ({style_param|separator_expr|comment}*) R_PARENTHESIS
 
 special_token ::= L_PARENTHESIS SPECIAL_IDENTIFIER (REPLACE_INSIDE_PARAMS|SEPARATOR)* R_PARENTHESIS
 

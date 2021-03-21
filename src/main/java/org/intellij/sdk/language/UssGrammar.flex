@@ -79,6 +79,7 @@ SEPARATOR= \s+
 WORD = \w+
 SINGLE_QUOTE = \'
 EMPTY_TOKEN = ["("][\s]*[")"]
+CSS_EMPTY_TOKEN = "("(\s*|"_px"|"_wheelScrollSpeed"|"_mouseEnabledWhileScroll")+")"
 
 // SERVICE EXPRESSIONS
 
@@ -105,7 +106,7 @@ PERCENTAGE_NUMBER = \-?\d+(\.\d+)?\%{1,2}("f"|"px"|"x")?
 FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw"|"sh"|"x")?
 // todo _width and drop_down_list_item
 STYLE_PARAM_LIST = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"|"bottom"|"drop_down_list_item"|"screenshot"
-|"auto"|"_width"
+|"auto"|"_width"|"_wheelScrollSpeed"|"_mouseEnabledWhileScroll"
 STYLE_PARAM_SPECIAL = {STYLE_PARAM_LIST} (\|{STYLE_PARAM_LIST})*
 // todo another strange element at the end
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
@@ -114,6 +115,7 @@ STYLE_PARAM_REPLACE = {REPLACE_EXPRESSION}{EMPTY_TOKEN}("px"|"sw")?
 //userData at css CRAZY SHIT
 USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*\w+(({SEPARATOR}|{CRLF})*\,({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR}|{CRLF})*\w+)*({SEPARATOR}|{CRLF})*\}
 STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|\#|{SEPARATOR}|{CRLF})+\}
+VAR_NAME = "_px"
 
 
 
@@ -224,7 +226,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
     {COMMENT_EXPR}                                    { return UssTypes.COMMENT_EXPR; }
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }
     {CLASS_NAME}                                    { return UssTypes.CLASS_NAME; }
-      {EMPTY_TOKEN}                                      { return UssTypes.EMPTY_TOKEN; }
+      {EMPTY_TOKEN}|{CSS_EMPTY_TOKEN}                                    { return UssTypes.EMPTY_TOKEN; }
    {L_PARENTHESIS}                                    {yybegin(CSS_PARAMS);  return UssTypes.L_PARENTHESIS; }
     {R_PARENTHESIS}                                  { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
 }
@@ -312,6 +314,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
      {STYLE_PIXEL_PARAM_WITH_OR}                                 { return UssTypes.STYLE_PIXEL_PARAM; }
       {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
       {STYLE_PARAM_REPLACE}                                      { return UssTypes.FRACTIONAL_NUMBER; }
+      {VAR_NAME}                                                { return UssTypes.FRACTIONAL_NUMBER; }
       //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
       // all styles available
       {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
@@ -334,6 +337,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
      {STYLE_PIXEL_PARAM_WITH_OR}                                 { return UssTypes.STYLE_PIXEL_PARAM; }
       {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
       {STYLE_PARAM_REPLACE}                                      { return UssTypes.FRACTIONAL_NUMBER; }
+       {VAR_NAME}                                                { return UssTypes.FRACTIONAL_NUMBER; }
       //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
       // all styles available
       {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
