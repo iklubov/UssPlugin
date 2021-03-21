@@ -128,8 +128,10 @@ BINDING_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{L_PARENTHESIS}|{R_PARENTHESIS}|{COL
 // COMPLEX PARAMS IN DESIGN COLLECTION BINDING
 REPLACE_INSIDE_PARAMS =  ({DOUBLE_QUOTE} ({WORD}|{VIRGULE}|{SEPARATOR}+|"."|"'"|"{"|"}"|"!"|"&"|"|"|"$"|":"|"?"|"="|"["|"]"|")"|"("|">"|"+"|"-"|",")* {DOUBLE_QUOTE}{SEPARATOR}*{VIRGULE}*{SEPARATOR}*)+
 
-TEMPLATE_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–")+
-TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{DOUBLE_QUOTE})+  ")"
+TEMPLATE_INSIDE_PARAMS = ({WORD}|{SEPARATOR}|{COLON}|{VIRGULE}|"{"|"}"|"."|"'"|";"|":"|">"|"<"|"="|"?"|"/"|"["|"]"|"!"|"&"|"|"|"$"|"+"|"-"|"*"|"—"|"%"|"№"|"^"|"#"|"–"|"!")+
+// todo shit
+TEMPLATE_INSIDE_QUOTE = {DOUBLE_QUOTE}({TEMPLATE_INSIDE_PARAMS}|"("|")")+{DOUBLE_QUOTE}
+TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})+  ")"
 
 
 
@@ -238,7 +240,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{DOUBLE_QUOTE})+  ")"
     {WORD}                                                   { return UssTypes.WORD; }
     //(bind text licenseData.licenseText)
     {POINT}                                                  { return UssTypes.WORD; }
-    {TEMPLATE_PARAMS}                                        { return UssTypes.WORD; }
+    {TEMPLATE_PARAMS}                                        { return UssTypes.TEMPLATE; }
     {DOUBLE_QUOTE}                                           { yybegin(BINDING_PARAMS); return UssTypes.DOUBLE_QUOTE; }
     {SINGLE_QUOTE}                                           { return UssTypes.WORD; }
     {R_PARENTHESIS}                                          { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
