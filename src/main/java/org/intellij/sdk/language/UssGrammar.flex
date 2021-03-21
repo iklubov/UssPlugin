@@ -100,15 +100,15 @@ SCREEN_SCALE_TYPE = "aw"|"ah"
 REPLACE_EXPRESSION = ([A-Z]+\_)*[A-Z]+ | "abs" | "trace" | "rtrace" //REPLACE_NAME
 REPLACE_EXPRESSION_NAME = ([A-Z]+\_)*[A-Z]+(\_\d)? | "abs" | "trace" | "rtrace" //REPLACE_NAME
 REPLACE_PARAMS = (\,?{SEPARATOR}*\_\w+)+
-// todo 100%px is real, 100%% as well
+// todo 100%px is real, 100%% as well, 100f%
 // todo strange 50x
-PERCENTAGE_NUMBER = \-?\d+(\.\d+)?\%{1,2}("f"|"px"|"x")?
+PERCENTAGE_NUMBER = \-?\d+(\.\d+)?("f"|"px"|"x")?\%{1,2}("f"|"px"|"x")?
 // and negative))
 
 FRACTIONAL_NUMBER = \-?\d+(\.\d+)?("px"|"sw"|"sh"|"x")?
 // todo _width and drop_down_list_item
 STYLE_PARAM_LIST = "absolute"|"overflow"|"scroll"|"fill"|"horizontal"|"vertical"|"false"|"true"|"cover"|"center"|"htile"|"vtile"|"right"|"middle"|"left"|"justify"|"hidden"|"bottom"|"drop_down_list_item"|"screenshot"
-|"auto"|"_width"|"_wheelScrollSpeed"|"_mouseEnabledWhileScroll"
+|"auto"|"_width"|"_wheelScrollSpeed"|"_mouseEnabledWhileScroll"|"virtual"
 STYLE_PARAM_SPECIAL = {STYLE_PARAM_LIST} (\|{STYLE_PARAM_LIST})*
 // todo another strange element at the end
 STYLE_PIXEL_PARAM = (\-*\d+ | ({SCREEN_SIZE_TYPE})) ("px"|"sw")?("|0")?
@@ -120,10 +120,12 @@ USER_DATA = \{({SEPARATOR}|{CRLF})*\w+\:({SEPARATOR})*{USER_DATA_0}(({SEPARATOR}
 STYLE_SHEET = \w+({SEPARATOR}|{CRLF})*\{(\w+|\:|\;|\$|\-|\#|{SEPARATOR}|{CRLF})+\}
 VAR_NAME = "_px"
 
+RESTRICTIONS_IN_PARAMS = "^<>"
+
 
 
 // todo - paths are not the only one
-WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}|{SCREEN_SCALE}|{USER_DATA}|{STYLE_SHEET}) {DOUBLE_QUOTE}
+WORD_INSIDE_QUOTE = {DOUBLE_QUOTE} ({FILE_PATH}|{STRANGE_EXPRESSION}|{CONTROLLER_PATH}|{BACKGROUND_STYLE_PARAM}|{DROPSHADOW_FILTER}|{HTML_PART}|{SCREEN_SCALE}|{USER_DATA}|{STYLE_SHEET}|{RESTRICTIONS_IN_PARAMS}) {DOUBLE_QUOTE}
 //(dropShadowFilter "")
 EMPTY_QUOTES = {DOUBLE_QUOTE}{DOUBLE_QUOTE}
 SCREEN_SCALE = \d+\:{STYLE_PIXEL_PARAM}{VIRGULE}{SEPARATOR}*\d+\:{STYLE_PIXEL_PARAM}{SCREEN_SCALE_TYPE}
@@ -320,6 +322,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
       {FRACTIONAL_NUMBER}                                        { return UssTypes.FRACTIONAL_NUMBER; }
       {STYLE_PARAM_REPLACE}                                      { return UssTypes.FRACTIONAL_NUMBER; }
       {VAR_NAME}                                                { return UssTypes.FRACTIONAL_NUMBER; }
+      {CLASS_NAME}                                                { return UssTypes.FRACTIONAL_NUMBER; }
       //todo  src/Lux/lesta/unbound/style/UbStyleParser.as
       // all styles available
       {ELEMENT_NAME}                                         { return UssTypes.ELEMENT_NAME; }
