@@ -204,6 +204,8 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
 
 <YYINITIAL> {SPECIAL_IDENTIFIER}                         { yybegin(SPECIAL_IDENTIFIER_DEFINITION); return UssTypes.SPECIAL_IDENTIFIER; }
 
+<YYINITIAL> {R_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
+
 // todo divide replace definition
 <YYINITIAL> {REPLACE_EXPRESSION}                         { yybegin(REPLACE_USAGE); return UssTypes.REPLACE_EXPRESSION; }
 <YYINITIAL> {REPLACE_SIMPLE_CONTENT}                         { yybegin(YYINITIAL); return UssTypes.REPLACE_SIMPLE_CONTENT; }
@@ -211,7 +213,7 @@ TEMPLATE_PARAMS = "(template" ({TEMPLATE_INSIDE_PARAMS}|{TEMPLATE_INSIDE_QUOTE})
 
 //<YYINITIAL> {IMPORT}                                     { yybegin(YYINITIAL); return UssTypes.IMPORT; }
 
-<YYINITIAL> {R_PARENTHESIS}                                     { yybegin(YYINITIAL); return UssTypes.R_PARENTHESIS; }
+
 
 <REPLACE_DEFINITION> {
     {SEPARATOR}+                                      { return UssTypes.SEPARATOR; }

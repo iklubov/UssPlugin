@@ -6,8 +6,7 @@ import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.intellij.sdk.language.psi.UssFile;
-import org.intellij.sdk.language.psi.UssToken;
+import org.intellij.sdk.language.psi.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
