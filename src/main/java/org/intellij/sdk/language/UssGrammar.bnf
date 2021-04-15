@@ -62,15 +62,7 @@ token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR* L_PARENTHESIS 
 
 // todo needed for ussLexer support
 
-service ::= ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS | STYLE | SPECIAL_IDENTIFIER
-//
 name_expr ::= ELEMENT_NAME | BINDING_NAME | BINDING_PROP | NO_PARAMS_BINDING | BINDING_PROP_FUNCTION | CLASS_NAME
-//
-//token_fill ::= service|name_expr|separator_expr|word_expr|newline
-
-//block_expr ::= L_PARENTHESIS BLOCK SEPARATOR({block_expr}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
-
-//token ::= L_PARENTHESIS({token|token_fill}+)R_PARENTHESIS | L_PARENTHESIS R_PARENTHESIS
 
 
 
