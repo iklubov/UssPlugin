@@ -17,7 +17,6 @@
 
 ussFile ::= item_*
 
-//private item_ ::= comment | newline | token
 private item_ ::= comment | newline | token | replace_definition_token | css_definition_token | separator_expr
 
 comment ::= COMMENT_EXPR
@@ -63,8 +62,6 @@ token ::= L_PARENTHESIS ELEMENT SEPARATOR ELEMENT_NAME SEPARATOR* L_PARENTHESIS 
 
 // todo needed for ussLexer support
 
-word_expr ::= (WORD | DOUBLE_QUOTE | EMPTY_TOKEN | COLON | VIRGULE)+
-//
 service ::= ELEMENT | BLOCK | CSS | BINDING | IMPORT | CLASS | STYLE | SPECIAL_IDENTIFIER
 //
 name_expr ::= ELEMENT_NAME | BINDING_NAME | BINDING_PROP | NO_PARAMS_BINDING | BINDING_PROP_FUNCTION | CLASS_NAME
