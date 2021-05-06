@@ -24,7 +24,7 @@
         <colorSettingsPage implementation="org.intellij.sdk.language.UssColorSettingsPage"/>
         <completion.contributor language="USS"
                                 implementationClass="org.intellij.sdk.language.UssCompletionContributor"/>
-        <additionalTextAttributes scheme="Default" file="colorSchemes/UssDefau11lt.xml"/>
+        <additionalTextAttributes scheme="Default" file="colorSchemes/UssDefaultColorScheme.xml"/>
     </extensions>
 
     <actions>
