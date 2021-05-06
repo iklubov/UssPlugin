@@ -1,5 +1,7 @@
 package org.intellij.sdk.language;
 
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
+import com.intellij.openapi.editor.HighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
@@ -14,10 +16,19 @@ import java.util.Map;
 public class UssColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
-            new AttributesDescriptor("Comment", UssSyntaxHighlighter.COMMENT),
-            new AttributesDescriptor("Separator", UssSyntaxHighlighter.SEPARATOR),
+
             new AttributesDescriptor("Element", UssSyntaxHighlighter.ELEMENT),
+            new AttributesDescriptor("Element name", UssSyntaxHighlighter.ELEMENT_NAME),
             new AttributesDescriptor("Block", UssSyntaxHighlighter.BLOCK),
+            new AttributesDescriptor("Style", UssSyntaxHighlighter.STYLE),
+            new AttributesDescriptor("Style params", UssSyntaxHighlighter.STYLE_PARAMS),
+            new AttributesDescriptor("Binding", UssSyntaxHighlighter.BINDING),
+            new AttributesDescriptor("Binding name", UssSyntaxHighlighter.BINDING_PARAMS),
+            new AttributesDescriptor("Class", UssSyntaxHighlighter.CLASS),
+            new AttributesDescriptor("Css", UssSyntaxHighlighter.CSS),
+            new AttributesDescriptor("Replace", UssSyntaxHighlighter.REPLACE),
+            new AttributesDescriptor("Separator", UssSyntaxHighlighter.SEPARATOR),
+            new AttributesDescriptor("Comment", UssSyntaxHighlighter.COMMENT),
             new AttributesDescriptor("Bad Value", UssSyntaxHighlighter.BAD_CHARACTER)
     };
 

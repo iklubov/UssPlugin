@@ -12,6 +12,6 @@ public class UssElementType extends IElementType{
 
     @Override
     public String toString() {
-        return "UssTokenType." + super.toString();
+        return "UssElementType." + super.toString();
     }
 }
