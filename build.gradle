@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'ussplugin'
-version '1.0-SNAPSHOT'
+version '1.02-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -25,6 +25,5 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+      Change notes template removed"""
 }
