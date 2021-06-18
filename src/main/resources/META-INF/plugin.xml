@@ -11,10 +11,12 @@
          on how to target different products -->
     <depends>com.intellij.java</depends>
 
+    <idea-version since-build="211."/>
+
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <fileType name="Uss File" implementationClass="org.intellij.sdk.language.UssFileType"
+        <fileType name="Uss file" implementationClass="org.intellij.sdk.language.UssFileType"
                   fieldName="INSTANCE" language="USS" extensions="uss"/>
         <lang.parserDefinition language="USS"
                                implementationClass="org.intellij.sdk.language.UssParserDefinition"/>
